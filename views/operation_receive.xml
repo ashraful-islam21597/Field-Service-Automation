@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_operation_receive" model="ir.actions.server">
+        <field name="name">operation receive</field>
+<!--         <field name="view_id" ref="usl_service_erp.view_picking_form_field_service"/>-->
+        <field name="model_id" ref="model_stock_picking"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_operation_receive()</field>
+
+
+<!--        <field name="help" type="html">-->
+<!--            <p class="">Create Service Order receive</p>-->
+<!--        </field>-->
+    </record>
+
+<!--    <menuitem id="menu_operation_receive"-->
+<!--              name="Order Items Receive"-->
+<!--              action="action_operation_receive"-->
+<!--              parent="menu_field_service_master"-->
+<!--              sequence="20"/>-->
+</odoo>

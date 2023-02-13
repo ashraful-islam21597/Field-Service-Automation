@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_service_type_tree" model="ir.ui.view">
+        <field name="name">service.type.tree</field>
+        <field name="model">service.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+
+    </record>
+
+
+    <!--    form-->
+    <record id="view_service_type_form" model="ir.ui.view">
+        <field name="name">service.type.form</field>
+        <field name="model">service.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+
+
+    <record id="action_service_type" model="ir.actions.act_window">
+        <field name="name">Service Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="">Create Service Type Setup</p>
+        </field>
+    </record>
+
+
+    <menuitem id="menu_service_type"
+              name="Service Type"
+              action="action_service_type"
+              parent="configuration_main_menu"
+              sequence="0"/>
+
+
+</odoo>

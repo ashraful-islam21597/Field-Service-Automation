@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_field_service_root"
+              name="Field Service Automation"
+              web_icon="usl_service_order_automation,static/description/icon.png"
+              sequence="0"/>
+    <menuitem id="menu_field_service_master"
+              name="Field Service"
+              parent="menu_field_service_root"
+              sequence="0"/>
+    <menuitem id="configuration_main_menu"
+              name="Configuration"
+              parent="menu_field_service_root"
+              sequence="25"/>
+    <menuitem id="requisition_main_menu"
+              name="Requisition"
+              parent="menu_field_service_root"
+              sequence="10"/>
+    <menuitem id="menu_task_manager"
+              name="Task Manager"
+              parent="menu_field_service_root"
+              sequence="20"/>
+    <menuitem id="approval_main_menu"
+              name="Approval"
+              parent="configuration_main_menu"
+              sequence="1"/>
+    <menuitem id="non_serial_product_service_menu"
+              name="Non Serial Product Service"
+              parent="menu_field_service_master"
+              sequence="40"/>
+    <menuitem id="monitoring_report_main_menu"
+              name="Monitoring Report"
+              parent="menu_field_service_root"
+              sequence="50"/>
+    <menuitem id="claim_management" name="Claim Management" parent="menu_field_service_root" sequence="20"/>
+</odoo>

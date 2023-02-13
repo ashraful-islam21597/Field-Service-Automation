@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_remarks_history_tree" model="ir.ui.view">
+        <field name="name">remarks.history.tree</field>
+        <field name="model">remarks.history</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="order_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_remarks_history_form" model="ir.ui.view">
+        <field name="name">remarks.history.form</field>
+        <field name="model">remarks.history</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="order_id"/>
+                        </group>
+
+
+                    </group>
+                    <group>
+                            <notebook>
+                                <page string="Remarks History">
+                                    <field name="remarks_lines_ids">
+                                        <tree editable="bottom">
+                                            <field name="remarked_by"/>
+                                            <field name="remarked_date"/>
+                                            <field name="remarked_place"/>
+                                            <field name="remarks"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="remarked_by"/>
+                                                <field name="remarked_date"/>
+                                                <field name="remarked_place"/>
+                                                <field name="remarks"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_remarks_history" model="ir.actions.act_window">
+        <field name="name">Remarks History</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">remarks.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+
+            </p>
+        </field>
+
+    </record>
+
+<!--    <menuitem-->
+<!--            id="remarks_history_menu"-->
+<!--            name="Remarks history"-->
+<!--            action="action_remarks_history"-->
+<!--            parent="configuration_main_menu"-->
+<!--            sequence="10"/>-->
+</odoo>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_symptoms_type_tree" model="ir.ui.view">
+        <field name="name">symptoms.type.tree</field>
+        <field name="model">symptoms.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="symptom"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_symptoms_type_form" model="ir.ui.view">
+        <field name="name">symptoms.type.form</field>
+        <field name="model">symptoms.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="symptom"/>
+                        </group>
+                        <group>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+
+                    </group>
+                    <group>
+                            <notebook>
+                                <page string="Possible Solution">
+                                    <field name="possible_solution_lines_ids">
+                                        <tree editable="bottom">
+                                            <field name="possible_solution"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="possible_solution"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_symptoms_type" model="ir.actions.act_window">
+        <field name="name">Symptoms Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">symptoms.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                List Your First Student!
+            </p>
+        </field>
+
+    </record>
+
+    <menuitem
+            id="symptoms_type_menu"
+            name="Symptoms Type"
+            action="action_symptoms_type"
+            parent="configuration_main_menu"
+            sequence="10"/>
+</odoo>

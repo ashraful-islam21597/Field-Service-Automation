@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_report_details" model="report.paperformat">
+        <field name="name">Custom Paper Format</field>
+        <field name="default" eval="False" />
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">0</field>
+<!--        <field name="dpi">90</field>-->
+    </record>
+
+    <record id="paperformat_report_transfer" model="report.paperformat">
+        <field name="name">Custom Paper Format For Transfer</field>
+        <field name="default" eval="False" />
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">0</field>
+<!--        <field name="dpi">90</field>-->
+    </record>
+
+
+
+    <record id="report_field_service_report_details" model="ir.actions.report">
+        <field name="name">RPTReportViewer</field>
+        <field name="model">field.service</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">usl_service_erp.report_field_service_report_main</field>
+        <field name="report_file">usl_service_erp.report_field_service_report_main</field>
+        <field name="binding_model_id" ref="model_field_service"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_report_details"/>
+    </record>
+
+    <record id="report_invoice_inherit_details" model="ir.actions.report">
+        <field name="name">Service Invoice Detail</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">usl_service_erp.report_invoice_document_inherit</field>
+        <field name="report_file">usl_service_erp.report_invoice_document_inherit</field>
+        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_report_details"/>
+    </record>
+
+     <record id="report_stock_picking_inherit" model="ir.actions.report">
+        <field name="name">Service Order Transfer</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">usl_service_erp.service_order_transfer_report</field>
+        <field name="report_file">usl_service_erp.service_order_transfer_report</field>
+        <field name="binding_model_id" ref="model_stock_picking"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_report_details"/>
+    </record>
+
+</odoo>

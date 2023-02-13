@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_assign_engineer_tree" model="ir.ui.view">
+        <field name="name">assign.engineer.tree</field>
+        <field name="model">assign.engineer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="engineer_id"/>
+                <field name="engineer_name" />
+                <field name="task_count"/>
+                <field name="active"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_assign_engineer_form" model="ir.ui.view">
+        <field name="name">assign.engineer.form</field>
+        <field name="model">assign.engineer</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_tasks" type="object" class="oe_stat_button" icon="fa-star">
+                            <field string="Task No" name="task_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group col="3">
+                        <group>
+                            <field name="engineer_id"/>
+                            <field name="engineer_name"/>
+                            <field name="engineer_email"/>
+                        </group>
+                        <group>
+                            <field name="engineer_branch"/>
+                            <field name="engineer_contact"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_assign_engineer" model="ir.actions.act_window">
+        <field name="name">Assign Engineer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">assign.engineer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Assign Engineer!
+            </p>
+        </field>
+    </record>
+
+<!--    <menuitem-->
+<!--            id="assign_engineer_menu"-->
+<!--            name="Engineer Details"-->
+<!--            action="action_assign_engineer"-->
+<!--            parent="configuration_main_menu"-->
+<!--            sequence="5"/>-->
+</odoo>

@@ -1,0 +1,152 @@
+<odoo>
+    <record id="seq_field_service" model="ir.sequence">
+        <field name="name">Field Service</field>
+        <field name="code">field.service</field>
+        <field name="prefix">SO</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_field_service_data" model="ir.sequence">
+        <field name="name">Field Service Data</field>
+        <field name="code">field.service.data</field>
+        <field name="prefix">IMEI</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_service_order_receive" model="ir.sequence">
+        <field name="name">Service Order Receive</field>
+        <field name="code">so.receive</field>
+        <field name="prefix">SOR</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_service_order_transfer" model="ir.sequence">
+        <field name="name">Service Order Transfer</field>
+        <field name="code">so.transfer</field>
+        <field name="prefix">SOT</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_item_requisition_warranty_data" model="ir.sequence">
+        <field name="name">Item Requisition</field>
+        <field name="code">item.requisition</field>
+        <field name="prefix">IR</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_advance_item_requisition_data" model="ir.sequence">
+        <field name="name">Advance Item Requisition</field>
+        <field name="code">advance.item.requisition</field>
+        <field name="prefix">AIR</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_engineer_item_return_data" model="ir.sequence">
+        <field name="name">Engineer Item Return</field>
+        <field name="code">engineer.item.return</field>
+        <field name="prefix">EIR</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_warehouse_mapping_data" model="ir.sequence">
+        <field name="name">Warehouse Mapping</field>
+        <field name="code">warehouse.mapping</field>
+        <field name="prefix">WM</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_repair_status" model="ir.sequence">
+        <field name="name">Repair Status</field>
+        <field name="code">repair.status</field>
+        <field name="prefix">RID</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_item_consumption" model="ir.sequence">
+        <field name="name">Item Consumption</field>
+        <field name="code">item.consumption</field>
+        <field name="prefix">IC</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_diagnosis_repair" model="ir.sequence">
+        <field name="name">Diagnosis Repair</field>
+        <field name="code">diagnosis.repair</field>
+        <field name="prefix">DR-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_diagnosis_repair_lines" model="ir.sequence">
+        <field name="name">Diagnosis Repair Lines</field>
+        <field name="code">diagnosis.repair.lines</field>
+        <field name="prefix">DRL-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_non_serial_product_receive" model="ir.sequence">
+        <field name="name">Non Serial Product Receive</field>
+        <field name="code">non.serial.product.receive</field>
+        <field name="prefix">NSPR-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_non_serial_product_delivery" model="ir.sequence">
+        <field name="name">Non Serial Product Delivery</field>
+        <field name="code">non.serial.product.delivery</field>
+        <field name="prefix">NSPD-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_service_charge_claim" model="ir.sequence">
+        <field name="name">Service Charge Claim</field>
+        <field name="code">so.claim</field>
+        <field name="prefix">SPLC</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_nspr_claim" model="ir.sequence">
+        <field name="name">Non Serial Product Labour Claim</field>
+        <field name="code">nspr.claim</field>
+        <field name="prefix">NSPLC</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_non_serial_product_claim" model="ir.sequence">
+        <field name="name">Non Serial Product claim</field>
+        <field name="code">non.serial.product.claim</field>
+        <field name="prefix">NSPC-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_serial_product_claim" model="ir.sequence">
+        <field name="name">Serial Product claim</field>
+        <field name="code">serial.product.claim</field>
+        <field name="prefix">SPC-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_non_serial_product_status" model="ir.sequence">
+        <field name="name">Non Serial Product status</field>
+        <field name="code">non.serial.product.status</field>
+        <field name="prefix">NSPS-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

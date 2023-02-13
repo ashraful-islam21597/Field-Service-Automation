@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_nsp_approval_config_tree" model="ir.ui.view">
+        <field name="name">nsp.approval.config.tree</field>
+        <field name="model">nsp.approval.config</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <field name="user_branch"/>
+                        <field name="active" widget="boolean_toggle"/>
+
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+    <record id="view_nsp_approval_config_form" model="ir.ui.view">
+        <field name="name">nsp.approval.config.form</field>
+        <field name="model">nsp.approval.config</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet>
+                    <group>
+                        <field name="user_branch"/>
+
+                        <field name="user_name"   widget="many2many">
+                            <tree>
+                                <field name="name"/>
+                                <field name="login" string="Email"/>
+                                <field name="branch_id"/>
+                                <field name="department_id"/>
+
+                            </tree>
+                        </field>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+    <record id="action_nsp_approval" model="ir.actions.act_window">
+        <field name="name">NSP Sales Return Approval Config</field>
+        <field name="res_model">nsp.approval.config</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem
+            id="menu_nsp_approval_view"
+            parent="approval_main_menu"
+            name="NSP Sales Return Approval Config"
+            action="action_nsp_approval"
+            sequence="30"/>
+
+</odoo>

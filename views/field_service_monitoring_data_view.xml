@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+    <!--    <record id="view_field_service_monitoring_data_tree" model="ir.ui.view">-->
+    <!--        <field name="name">field.service.monitoring.data.tree</field>-->
+    <!--        <field name="model">field.service.monitoring.data</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <tree>-->
+    <!--                <field name="so_number"/>-->
+    <!--            </tree>-->
+
+
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="view_field_service_data_tree" model="ir.ui.view">
+        <field name="name">field.service.monitoring.data.tree</field>
+        <field name="model">field.service.monitoring.data</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="so_number"/>
+                <field name="imei_no"/>
+                <field name="customer"/>
+                <field name="retailer"/>
+                <field name="mobile"/>
+                <field name="brand"/>
+                <field name="product"/>
+                <field name="cost_center"/>
+                <field name="warranty_status"/>
+                <field name="service_order_date"/>
+                <field name="state"/>
+                <field name="so_date"/>
+                <field name="so_created_by"/>
+                <field name="service_type"/>
+                <field name="repair_status"/>
+                <field name="item_receive_branch"/>
+                <field name="item_receive_status"/>
+                <field name="product_receive_date"/>
+                <field name="assign_by"/>
+                <field name="assign_for" string="Assign To"/>
+                <field name="assign_f"/>
+                <field name="assign_date"/>
+                <field name="dpt_diff_days"/>
+                <field name="assign_date_qa"/>
+                <field name="assign_by_qa"/>
+                <field name="assign_eng_qa"/>
+                <field name="assign_by_op"/>
+                <field name="assign_eng_op"/>
+                <field name="assign_status"/>
+                <field name="qa_status"/>
+                <field name="remarks"/>
+                <field name="qa_comment"/>
+                <field name="rbt_no"/>
+                <field name="to_branch"/>
+                <field name="tbr_by"/>
+                <field name="rbt_date"/>
+                <field name="rtt_date"/>
+                <field name="tbt_date"/>
+                <field name="rbr_date"/>
+                <field name="tbt_by"/>
+                <field name="dest_type"/>
+                <field name="dept"/>
+                <field name="current_user"/>
+                <field name="rbr_no"/>
+                <field name="tin_transit_day"/>
+                <field name="delivery_date"/>
+                <field name="delivery_diff_date"/>
+                <field name="delivery_by"/>
+                <field name="claim_no"/>
+                <field name="principal_claim_no"/>
+                <field name="part_claim_no"/>
+                <field name="claim_create_no"/>
+                <field name="claim_date"/>
+                <field name="receive_by"/>
+                <field name="claim_receive_date"/>
+                <field name="claim_receive_create_date"/>
+                <field name="claim_tat"/>
+                <field name="brand_name"/>
+                <field name="delivery_by"/>
+                <field name="warranty_expiry_date_p"/>
+                <field name="warranty_expiry_date_l"/>
+                <field name="expected_deliver_date"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <!--    <record id="view_field_service_data__tree" model="ir.ui.view">-->
+    <!--        <field name="name">field.service.monitoring.data.tree</field>-->
+    <!--        <field name="model">field.service.monitoring.data</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <tree class="custom_class" style="width:1060px; overflow-x: scroll;">-->
+    <!--                <field name="so_number"/>-->
+    <!--                <field name="model_state"/>-->
+    <!--                <field name="imei_no"/>-->
+    <!--                <field name="customer"/>-->
+    <!--                <field name="retailer"/>-->
+    <!--                <field name="mobile"/>-->
+    <!--                <field name="brand"/>-->
+    <!--                <field name="product"/>-->
+    <!--                <field name="cost_center"/>-->
+    <!--                <field name="warranty_status"/>-->
+    <!--                <field name="service_order_date"/>-->
+    <!--                <field name="state"/>-->
+    <!--                <field name="so_created_by"/>-->
+    <!--                <field name="service_type"/>-->
+    <!--                <field name="repair_status"/>-->
+    <!--                <field name="item_receive_branch"/>-->
+    <!--                <field name="item_receive_status"/>-->
+    <!--                <field name="product_receive_date"/>-->
+    <!--                <field name="assign_by"/>-->
+    <!--                <field name="assign_for"/>-->
+    <!--                <field name="assign_f"/>-->
+    <!--                <field name="assign_date"/>-->
+    <!--                <field name="assign_status"/>-->
+    <!--                <field name="qa_status"/>-->
+    <!--                <field name="remarks"/>-->
+    <!--                <field name="qa_comment"/>-->
+    <!--                <field name="delivery_date"/>-->
+    <!--            </tree>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+
+    <!--    <record id="view_field_service_monitoring_data_form" model="ir.ui.view">-->
+    <!--        <field name="name">field.service.monitoring.data.form</field>-->
+    <!--        <field name="model">field.service.monitoring.data</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <form>-->
+    <!--                <sheet>-->
+    <!--                    <group>-->
+    <!--                        <group>-->
+    <!--                            <field name="so_number"/>-->
+    <!--                            <field name="monitor_type"/>-->
+    <!--                        </group>-->
+    <!--                        <group>-->
+    <!--                            <field name="date_start"/>-->
+    <!--                            <field name="date_end"/>-->
+    <!--                        </group>-->
+    <!--                    </group>-->
+    <!--                    <group>-->
+    <!--                        <notebook>-->
+    <!--                            <page string="Monitoring Report History">-->
+    <!--                                <field name="monitoring_data_lines_ids" style="width:1060px; overflow-x: scroll;">-->
+    <!--                                    <tree editable="bottom" class="custom_class">-->
+    <!--                                        <field name="so_number"/>-->
+    <!--                                        <field name="model_state"/>-->
+    <!--                                        <field name="imei_no"/>-->
+    <!--                                        <field name="customer"/>-->
+    <!--                                        <field name="retailer"/>-->
+    <!--                                        <field name="mobile"/>-->
+    <!--                                        <field name="brand"/>-->
+    <!--                                        <field name="product"/>-->
+    <!--                                        <field name="cost_center"/>-->
+    <!--                                        <field name="warranty_status"/>-->
+    <!--                                        <field name="service_order_date"/>-->
+    <!--                                        <field name="state"/>-->
+    <!--                                        <field name="so_created_by"/>-->
+    <!--                                        <field name="service_type"/>-->
+    <!--                                        <field name="repair_status"/>-->
+    <!--                                        <field name="item_receive_branch"/>-->
+    <!--                                        <field name="item_receive_status"/>-->
+    <!--                                        <field name="product_receive_date"/>-->
+    <!--                                        <field name="assign_by"/>-->
+    <!--                                        <field name="assign_for"/>-->
+    <!--                                        <field name="assign_f"/>-->
+    <!--                                        <field name="assign_date"/>-->
+    <!--                                        <field name="assign_status"/>-->
+    <!--                                        <field name="qa_status"/>-->
+    <!--                                        <field name="remarks"/>-->
+    <!--                                        <field name="qa_comment"/>-->
+    <!--                                        <field name="delivery_date"/>-->
+    <!--                                    </tree>-->
+    <!--                                    <form class="custom_class1">-->
+    <!--                                        <group>-->
+    <!--                                            <field name="so_number"/>-->
+    <!--                                            <field name="model_state"/>-->
+    <!--                                            <field name="imei_no"/>-->
+    <!--                                            <field name="customer"/>-->
+    <!--                                            <field name="retailer"/>-->
+    <!--                                            <field name="mobile"/>-->
+    <!--                                            <field name="brand"/>-->
+    <!--                                            <field name="product"/>-->
+    <!--                                            <field name="cost_center"/>-->
+    <!--                                            <field name="warranty_status"/>-->
+    <!--                                            <field name="service_order_date"/>-->
+    <!--                                            <field name="state"/>-->
+    <!--                                            <field name="so_created_by"/>-->
+    <!--                                            <field name="service_type"/>-->
+    <!--                                            <field name="repair_status"/>-->
+    <!--                                            <field name="item_receive_branch"/>-->
+    <!--                                            <field name="item_receive_status"/>-->
+    <!--                                            <field name="product_receive_date"/>-->
+    <!--                                            <field name="assign_by"/>-->
+    <!--                                            <field name="assign_for"/>-->
+    <!--                                            <field name="assign_f"/>-->
+    <!--                                            <field name="assign_date"/>-->
+    <!--                                            <field name="assign_status"/>-->
+    <!--                                            <field name="qa_status"/>-->
+    <!--                                            <field name="remarks"/>-->
+    <!--                                            <field name="qa_comment"/>-->
+    <!--                                            <field name="delivery_date"/>-->
+    <!--                                        </group>-->
+    <!--                                    </form>-->
+    <!--                                </field>-->
+    <!--                            </page>-->
+    <!--                        </notebook>-->
+    <!--                    </group>-->
+    <!--                </sheet>-->
+    <!--            </form>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="action_report_monitoring_data" model="ir.actions.act_window">
+        <field name="name">Field Service Monitoring Data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">field.service.monitoring.data</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="report_monitoring_data_menu"
+              name="Monitoring Report Data"
+              parent="monitoring_report_main_menu"
+              action="action_report_monitoring_data"
+              sequence="50"/>
+
+</odoo>

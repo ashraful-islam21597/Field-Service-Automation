@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_communication_media_tree" model="ir.ui.view">
+        <field name="name">communication.media.tree</field>
+        <field name="model">communication.media</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="communication_media"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_communication_media_form" model="ir.ui.view">
+        <field name="name">communication.media.form</field>
+        <field name="model">communication.media</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="communication_media"/>
+                        </group>
+                        <group>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_communication_media" model="ir.actions.act_window">
+        <field name="name">Communication Media</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">communication.media</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                List Your Communication Media!
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="communication_media_menu"
+            name="Communication Media"
+            action="action_communication_media"
+            parent="configuration_main_menu"
+            sequence="40"/>
+</odoo>

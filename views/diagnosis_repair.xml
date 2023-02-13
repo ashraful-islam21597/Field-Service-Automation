@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_diagnosis_repair_tree" model="ir.ui.view">
+        <field name="name">diagnosis.repair.tree</field>
+        <field name="model">diagnosis.repair</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="order_id"/>
+                <field name="contact"/>
+                <field name="engineer"/>
+                <field name="customer"/>
+                <field name="item"/>
+                <field name="state" widget="badge"/>
+                <!--                <field name="priority_level_duration"/>-->
+                <!--                <field name="priority"/>-->
+                <!--                <field name="possible_solution"/>-->
+                <!--                <field name="service_charge"/>-->
+                <!--                <field name="qa_status"/>-->
+                <!--                <field name="qa_comments"/>-->
+            </tree>
+
+        </field>
+    </record>
+
+
+    <record id="view_diagnosis_repair_form" model="ir.ui.view">
+        <field name="name">diagnosis.repair.form</field>
+        <field name="model">diagnosis.repair</field>
+        <field name="arch" type="xml">
+            <form class="oe_form_sheet_width_wider">
+                <header>
+                    <button name="action_delete" string="test delete" type="object" invisible="1"/>
+
+                    <field name="approval" invisible="1"/>
+                    <button name="action_service_for_approval" string="Submit For Approval" class="oe_highlight"
+                            type="object"
+                            attrs="{'invisible': ['|', '|', ('approval', '=', False), ('state', '=', 'submit_for_approval'), ('state', '=', 'approved')]}"/>
+                    <field name="permission" invisible="1"/>
+                    <button name="action_approval" string="Approve" class="oe_highlight"
+                            type="object"
+                            attrs="{'invisible': ['|', '|', ('permission', '=', False), ('state', '=', 'approved'), ('state', '=', 'draft')]}"/>
+                    />
+                    <button name="action_cancel" string="Cancel" type="object"
+                            attrs="{'invisible': ['|', '|', ('permission', '=', False), ('state', '=', 'approved'), ('state', '=', 'draft')]}"/>
+                    <button name="action_draft" string="Reset To Draft" states="cancel" type="object"/>
+
+
+                    <field name="state" widget="statusbar" nolabel="1"
+                           statusbar_visible="draft,submit_for_approval,approved"/>
+
+                </header>
+                <sheet>
+
+                    <div class="oe_button_box" name="button-box">
+                        <field name="requisition" invisible="1"/>
+
+                        <button class="button2 oe_stat_button" type="object" string="Requisition"
+                                name="requisition_button" icon="fa-star"/>
+                    </div>
+                    <group col="3">
+                        <group>
+                            <field name="order_id"/>
+                            <field name="item"/>
+                            <field name="engineer"/>
+                        </group>
+                        <group>
+                            <field name="customer"/>
+                            <field name="contact" widget="phone"/>
+                            <field name="test" invisible="1"/>
+                            <field name="current_repair_status"/>
+                            <field name="test1" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="priority" widget="priority" class="oe_inline"/>
+                            <field name="priority_lavel_duration"/>
+                            <field name="warranty"/>
+                        </group>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page string="Diagnosis and Repair">
+<!--                                <field name="readonly" invisible="1"/>-->
+                                <field name="diagnosis_repair_lines_ids" style="width:1260px; overflow-x: scroll;"
+                                       attrs="{'readonly': [('state', '=', 'approved')]}">
+                                    <tree editable="bottom" class="custom_class">
+                                        <field name="engineer" invisible="1"/>
+                                        <field name="rep_seq" invisible="1"/>
+                                        <field name="symptoms"/>
+                                        <field name="possible_solution"/>
+                                        <field name="symptoms_domain" invisible="1"/>
+                                        <field name="learner_id" string="Learner ID"/>
+                                        <field name="engineer_observation"/>
+                                        <field name="attach_diagnosis_doc"/>
+                                        <field name="diagnosis_date"/>
+                                        <field name="part"/>
+                                        <field name="part_check"/>
+                                        <field name="defective_sno"/>
+                                        <field name="price_unit" string="Total" sum="Total"/>
+                                        <field name="service_charge" sum="Total" invisible="1"/>
+                                        <field name="customer_confirmation"/>
+                                        <field name="faulty_tag"/>
+                                        <field name="remarks"/>
+                                        <field name="task_status1"/>
+                                        <field name="qa_status"/>
+                                        <field name="qa_comments"/>
+                                        <field name="is_consumed" widget="boolean_toggle"/>
+                                        <field name="possible_delivery_date"/>
+                                    </tree>
+                                    <form class="custom_class1">
+
+                                        <group>
+                                            <field name="engineer" invisible="1"/>
+                                            <field name="rep_seq" invisible="1"/>
+
+
+                                            <field name="item"/>
+                                            <!--                                            <field name="warranty_status"/>-->
+                                            <field name="symptoms"/>
+                                            <field name="possible_solution"/>
+
+                                            <field name="symptoms_domain" invisible="1"/>
+                                            <field name="learner_id" string="Learner ID"/>
+                                            <field name="engineer_observation"/>
+                                            <field name="attach_diagnosis_doc"/>
+                                            <field name="diagnosis_date"/>
+                                            <field name="part"/>
+                                            <field name="part_check"/>
+                                            <field name="defective_sno"/>
+                                            <field name="service_charge"/>
+                                            <!--                                            <field name="total_amount"/>-->
+                                            <field name="customer_confirmation"/>
+                                            <field name="faulty_tag"/>
+                                            <field name="remarks"/>
+                                            <field name="task_status1"/>
+                                            <field name="qa_status"/>
+                                            <field name="qa_comments"/>
+                                            <field name="is_consumed" widget="boolean_toggle"/>
+                                        </group>
+                                    </form>
+
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_diagnosis_repair" model="ir.actions.act_window">
+        <field name="name">Diagnosis Repair</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">diagnosis.repair</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Assign Engineer Details!
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="diagnosis_repair_menu"
+            name="Diagnosis and Repair"
+            action="action_diagnosis_repair"
+            parent="menu_task_manager"
+            sequence="20"/>
+
+    <record id="diagnosis_repair_tree_rule" model="ir.rule">
+        <field name="name">Diagnosis Repair Tree Rule</field>
+        <field name="model_id" ref="model_diagnosis_repair"/>
+        <field eval="True" name="global"/>
+        <field name="domain_force">user._get_domain()</field>
+    </record>
+</odoo>

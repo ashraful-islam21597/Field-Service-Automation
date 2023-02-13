@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    <template id="report_service_order_monitoring_id_xls">-->
+<!--        <t t-call="web.html_container">-->
+<!--            <t t-foreach="docs" t-as="o">-->
+<!--                <t t-call="web.external_layout">-->
+<!--                    <div class="page">-->
+<!--                        <div class="oe_structure"/>-->
+<!--                        <div class="row">-->
+
+
+<!--                        </div>-->
+<!--                        <br/>-->
+<!--&lt;!&ndash;                        <t t-if="o.appointment_ids">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <spam>Appointment Details</spam>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <table class="table table-bordered" name="appointment">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <thead>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <th name="th_sl_no" class="text-left">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <spam>SNO.</spam>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </th>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <th name="th_reference" class="text-left">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <spam>Reference</spam>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </th>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <th name="th_date" class="text-left">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <spam>Date</spam>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </th>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <th name="th_status" class="text-left">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <spam>Status</spam>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </th>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </thead>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <t t-set="appointment_count" t-value="0"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <t t-foreach="o.appointment_ids" t-as="line">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <t t-set="appointment_count" t-value="appointment_count+1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <spam t-esc="line_index+1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <spam t-field="line.name"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <spam t-field="line.booking_date"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <spam t-field="line.state"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </t>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <td colspan="3">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        Total Appointment&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <t t-esc="appointment_count"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </table>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </t>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--        </t>-->
+<!--    </template>-->
+</odoo>

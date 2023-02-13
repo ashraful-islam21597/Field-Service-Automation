@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_service_data_tree" model="ir.ui.view">
+        <field name="name">field.service.data.tree</field>
+        <field name="model">field.service.data</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="serial_no"/>
+                <field name="product_id" optional="hide"/>
+                <field name="invoice"/>
+                <field name="customer_id"/>
+                <field name="p_date" optional="hide"/>
+                <field name="warranty_status" optional="hide"/>
+                <field name="warranty_expiry_date_l"/>
+                <field name="warranty_expiry_date_p"/>
+                <field name="guaranty_expiry_date" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_field_service_data_form" model="ir.ui.view">
+        <field name="name">field.service.data.form</field>
+        <field name="model">field.service.data</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="serial_no"/>
+                            <field name="product_id"/>
+                            <field name="invoice"/>
+                            <field name="warranty_expiry_date_l"/>
+                        </group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="p_date"/>
+                            <field name="warranty_status"/>
+                            <field name="warranty_expiry_date_p"/>
+                        </group>
+
+                    </group>
+                </sheet>
+                <!--Chatter-->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_field_service_data_search" model="ir.ui.view">
+        <field name="name">field.service.data.search</field>
+        <field name="model">field.service.data</field>
+        <field name="arch" type="xml">
+            <search>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="action_field_service_data" model="ir.actions.act_window">
+        <field name="name">Service Order Data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">field.service.data</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                List Your First Student!
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="field_service_data_menu"
+            name="Field Service Data"
+            action="action_field_service_data"
+            parent="menu_field_service_master"
+            sequence="10"/>
+</odoo>

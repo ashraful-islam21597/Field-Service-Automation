@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--  <data>-->
+<!--    &lt;!&ndash; Load css File &ndash;&gt;-->
+<!--    <template id="my_custom_css_asset" name="my_custom_css assets" inherit_id="we">-->
+<!--      <xpath expr="//sheet" position="attributes">-->
+<!--        <attribute name="class">sheet_width</attribute>-->
+<!--    </xpath>-->
+<!--    </template>-->
+<!--  </data>-->
+
+
+</odoo>

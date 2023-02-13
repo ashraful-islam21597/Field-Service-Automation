@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_field_service_report_main">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="doc" t-value="doc.with_context(lang=lang)"/>
+                <t t-if="not o" t-set="o" t-value="doc"/>
+                <t t-if="not company">
+                    <!-- Multicompany -->
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+                <div class="row mb-2">
+                    <div class="col-8 mb4">
+                        <img alt="img" t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                             style="max-height:90px; width:200px;"/>
+                        <div style="font-size: 13px !important;">
+                            <span t-if="company.street" t-field="company.street"/>
+                            <span t-if="company.street2" t-field="company.street2"/>
+                            <span t-if="company.city" t-field="company.city"/>
+                            <br/>
+                            <span t-if="company.state_id" t-field="company.state_id"/>
+                            <span t-if="company.country_id" t-field="company.country_id"/>
+                        </div>
+
+                    </div>
+                    <div class="col-4 text-left" style="font-size: 13px !important;">
+                        Phone:
+                        <span t-field="company.phone"/>
+                        <br/>
+                        Mobile:
+                        <span t-field="company.mobile"/>
+                        <br/>
+                        Email:
+                        <span t-field="company.email"/>
+                        <br/>
+                        Website:
+                        <span t-field="company.website"/>
+                    </div>
+                </div>
+                <p style="border-bottom: 2px solid #000;"></p>
+                <div class="page" style="font-size:12px">
+                    <div class="oe_structure"/>
+                    <div class="row mt-2">
+                        <div class="col-9" style="padding-left:350px;">
+                            <h6 class="font-weight-bold">Complain Receive
+                            </h6>
+                        </div>
+                        <div class="col-3 text-center bg-secondary text-white py-1">
+                            <h6 class="font-weight-bold">Receive Copy</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-7" style="font-size:12px">
+                            <p class="m-0 p-0">Order No :
+                                <span t-field="doc.order_no"/>
+                            </p>
+                            <p class="m-0 p-0">Dealer/Retailer :
+                                <span t-field="doc.retail"/>
+                            </p>
+                            <p class="m-0 p-0">Client Name :
+                                <span t-field="doc.customer_id"/>
+                            </p>
+                            <p class="m-0 p-0">Mobile No :
+                                <span t-field="doc.phone"/>
+                            </p>
+                            <p class="m-0 p-0">Sale Date:
+                                <span t-field="doc.order_date"/>
+                            </p>
+                            <p class="m-0 p-0">Order Date:
+                                <span t-field="doc.order_date"/>
+                            </p>
+                            <p class="m-0 p-0">Email:
+                                <span t-field="doc.customer_id.email"/>
+                            </p>
+                        </div>
+                        <div class="col-5" style="font-size:12px">
+                            <div class="float-right my-1">
+                                <span t-field="doc.order_no"
+                                      t-options="{'widget': 'barcode', 'width': 410, 'height': 25}"/>
+                            </div>
+                            <p class="m-0 p-0">Complain Media:
+                                <span t-field="doc.service_type"/>
+                            </p>
+                            <p class="m-0 p-0">Branch:
+                                <span t-field="doc.branch_name"/>
+                            </p>
+                            <p class="m-0 p-0">Department:
+                                <span t-field="doc.departments"/>
+                            </p>
+                            <p class="m-0 p-0">Receive By:
+                                <span t-field="doc.user_id.name"/>
+                            </p>
+                            <p class="m-0 p-0">Warranty Status:
+                                <span t-field="doc.warranty_status"/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-inline" style="font-size:12px">
+                        <p class="m-0 p-0">Remarks :
+                            <span t-field="doc.remark"/>
+                        </p>
+                    </div>
+                    <table class="table table-bordered m-0 p-0">
+                        <thead>
+                            <tr>
+                                <th name="th_description" class="text-center">Product Name</th>
+                                <th name="th_quantity" class="text-center">IMEI/Serial No</th>
+                                <th name="th_priceunit" class="text-center">Invoice No</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td name="td_name" class="text-center">
+                                    <span t-field="doc.product_id"/>
+                                </td>
+                                <td name="td_quantity" class="text-center">
+                                    <span t-field="doc.invoice"/>
+                                </td>
+                                <td name="td_quantity" class="text-center">
+                                    <span t-field="doc.imei_no"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-6 font-weight-bold">
+                            <p>___________________________________
+                                <br/>
+                                Customer's Signature
+                            </p>
+                        </div>
+                        <div class="col-6 font-weight-bold" style="padding-left:200px;">
+                            <p>__________________________________
+                                <br/>
+                                Authorized Signature
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center">_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+                    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+                </p>
+                <div class="page" style="font-size:12px">
+                    <div class="oe_structure"/>
+                    <div class="row mt-2">
+                        <div class="col-9" style="padding-left:350px;">
+                            <h6 class="font-weight-bold">Complain Receive
+                            </h6>
+                        </div>
+                        <div class="col-3 text-center bg-secondary text-white py-1">
+                            <h6 class="font-weight-bold">Delivery Copy</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-7" style="font-size:12px">
+                            <p class="m-0 p-0">Order No :
+                                <span t-field="doc.order_no"/>
+                            </p>
+                            <p class="m-0 p-0">Dealer/Retailer :
+                                <span t-field="doc.retail"/>
+                            </p>
+                            <p class="m-0 p-0">Client Name :
+                                <span t-field="doc.customer_id"/>
+                            </p>
+                            <p class="m-0 p-0">Mobile No :
+                                <span t-field="doc.phone"/>
+                            </p>
+                            <p class="m-0 p-0">Sale Date:
+                                <span t-field="doc.order_date"/>
+                            </p>
+                            <p class="m-0 p-0">Order Date:
+                                <span t-field="doc.order_date"/>
+                            </p>
+                            <p class="m-0 p-0">Email:
+                                <span t-field="doc.customer_id.email"/>
+                            </p>
+                        </div>
+                        <div class="col-5" style="font-size:12px">
+                            <div class="float-right my-1">
+                                <span t-field="doc.order_no"
+                                      t-options="{'widget': 'barcode', 'width': 410, 'height': 25}"/>
+                            </div>
+                            <p class="m-0 p-0">Complain Media:
+                                <span t-field="doc.service_type"/>
+                            </p>
+                            <p class="m-0 p-0">Branch:
+                                <span t-field="doc.branch_name"/>
+                            </p>
+                            <p class="m-0 p-0">Department:
+                                <span t-field="doc.departments"/>
+                            </p>
+                            <p class="m-0 p-0">Receive By:
+                                <span t-field="doc.user_id.name"/>
+                            </p>
+                            <p class="m-0 p-0">Warranty Status:
+                                <span t-field="doc.warranty_status"/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-inline" style="font-size:12px">
+                        <p class="m-0 p-0">Remarks :
+                            <span t-field="doc.remark"/>
+                        </p>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th name="th_description" class="text-center">Product Name</th>
+                                <th name="th_quantity" class="text-center">IMEI/Serial No</th>
+                                <th name="th_priceunit" class="text-center">Invoice No</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td name="td_name" class="text-center">
+                                    <span t-field="doc.product_id"/>
+                                </td>
+                                <td name="td_quantity" class="text-center">
+                                    <span t-field="doc.invoice"/>
+                                </td>
+                                <td name="td_quantity" class="text-center">
+                                    <span t-field="doc.imei_no"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex flex-row-reverse">
+                        <div class="col-6 font-weight-bold">
+                            <p>___________________________________
+                                <br/>
+                                Customer's Signature
+                            </p>
+                        </div>
+                        <div class="col-6 font-weight-bold" style="padding-left:200px;">
+                            <p>__________________________________
+                                <br/>
+                                Authorized Signature
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center">_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+                    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+                </p>
+                <div class="page" style="font-size:12px">
+                    <div class="oe_structure"/>
+                    <div class="row mt-2">
+                        <div class="col-9" style="padding-left:350px;">
+                            <h6 class="font-weight-bold">Complain Receive
+                            </h6>
+                        </div>
+                        <div class="col-3 text-center bg-secondary text-white py-1">
+                            <h6 class="font-weight-bold">Customer Copy</h6>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-7" style="font-size:12px">
+                            <p class="m-0 p-0">Order No :
+                                <span t-field="doc.order_no"/>
+                            </p>
+                            <p class="m-0 p-0">Dealer/Retailer :
+                                <span t-field="doc.retail"/>
+                            </p>
+                            <p class="m-0 p-0">Client Name :
+                                <span t-field="doc.customer_id"/>
+                            </p>
+                            <p class="m-0 p-0">Mobile No :
+                                <span t-field="doc.phone"/>
+                            </p>
+                            <p class="m-0 p-0">Sale Date:
+                                <span t-field="doc.order_date"/>
+                            </p>
+                            <p class="m-0 p-0">Order Date:
+                                <span t-field="doc.order_date"/>
+                            </p>
+                            <p class="m-0 p-0">Email:
+                                <span t-field="doc.customer_id.email"/>
+                            </p>
+                        </div>
+                        <div class="col-5" style="font-size:12px">
+                            <div class="float-right my-1">
+                                <span t-field="doc.order_no"
+                                      t-options="{'widget': 'barcode', 'width': 410, 'height': 25}"/>
+                            </div>
+                            <p class="m-0 p-0">Complain Media:
+                                <span t-field="doc.service_type"/>
+                            </p>
+                            <p class="m-0 p-0">Branch:
+                                <span t-field="doc.branch_name"/>
+                            </p>
+                            <p class="m-0 p-0">Department:
+                                <span t-field="doc.departments"/>
+                            </p>
+                            <p class="m-0 p-0">Receive By:
+                                <span t-field="doc.user_id.name"/>
+                            </p>
+                            <p class="m-0 p-0">Warranty Status:
+                                <span t-field="doc.warranty_status"/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-inline" style="font-size:12px">
+                        <p class="m-0 p-0">Remarks :
+                            <span t-field="doc.remark"/>
+                        </p>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th name="th_description" class="text-center">Product Name</th>
+                                <th name="th_quantity" class="text-center">IMEI/Serial No</th>
+                                <th name="th_priceunit" class="text-center">Invoice No</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td name="td_name" class="text-center">
+                                    <span t-field="doc.product_id"/>
+                                </td>
+                                <td name="td_quantity" class="text-center">
+                                    <span t-field="doc.invoice"/>
+                                </td>
+                                <td name="td_quantity" class="text-center">
+                                    <span t-field="doc.imei_no"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex flex-row-reverse">
+                        <div class="col-6 font-weight-bold">
+                            <p>___________________________________
+                                <br/>
+                                Customer's Signature
+                            </p>
+                        </div>
+                        <div class="col-6 font-weight-bold" style="padding-left:200px;">
+                            <p>__________________________________
+                                <br/>
+                                Authorized Signature
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

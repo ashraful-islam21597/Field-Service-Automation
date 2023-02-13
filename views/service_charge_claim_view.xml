@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_service_charge_claim_inherit_tree" model="ir.ui.view">
+        <field name="name">account.move.claim.inherit.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_tree"/>
+        <field name="arch" type="xml">
+            <tree>
+
+                    <field name="claim_type" invisible="1"/>
+<!--                <xpath expr="/form/sheet//field[@name='ref']"-->
+<!--                   position="after">-->
+<!--                <field name="nspr_labour_claim_flag" invisible="1"/>-->
+<!--                <field name="claim_flag" invisible="1"/>-->
+<!--            </xpath>-->
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_service_charge_claim_inherit_form" model="ir.ui.view">
+        <field name="name">account.move.inherit.form</field>
+        <field name="model">account.move</field>
+        <field name="priority">20</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="/form/sheet//field[@name='ref']"
+                   position="after">
+                <field name="nspr_labour_claim_flag" invisible="1"/>
+                <field name="claim_flag" invisible="1"/>
+
+            </xpath>
+            <xpath expr="//button[@name='action_post']" position="before">
+                <field name="claim_approve" invisible="1"/>
+                <button name="action_approved"
+                        string="Approval" type="object" class="oe_highlight" groups="base.group_user"
+                        attrs="{'invisible': ['|','|','|','|',('state','=','draft'),('state','=','approved'),('state','=','posted'),('claim_flag', '=', False),('claim_approve', '=', False)]}"/>
+
+            </xpath>
+            <xpath expr="//button[@name='action_post'][2]" position="attributes">
+                <attribute name="attrs">{'invisible':['|','|',('state','=','draft'),('state','=','submitted_for_approval'),('state','=','posted')]}
+                </attribute>
+            </xpath>
+
+
+            <xpath expr="/form/sheet//field[@name='ref']"
+                   position="after">
+                <field name="claim_flag" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='branch_id']" position="after">
+                <xpath expr="//field[@name='payment_reference']" position="move"/>
+                <field name="per_unit_cost" attrs="{'invisible':[('claim_flag','=',False)],'required':[('claim_flag','=',True)]}"/>
+            </xpath>
+            <xpath expr="//group[@id='header_right_group']/div[@class='o_td_label']/label[@for='invoice_date'][1]"
+                   position="attributes">
+                <attribute name="attrs">{'invisible': [('claim_flag','=',True)]}
+                </attribute>
+            </xpath>
+            <xpath expr="//group[@id='header_right_group']/div[@class='o_td_label']/label[@for='invoice_date'][1]"
+                   position="after">
+                <div>
+                    <label for="invoice_date" string="Calim Date" attrs="{'invisible': [('claim_flag','!=',True)]}"/>
+                </div>
+            </xpath>
+
+
+<!--            <xpath expr="//group[@id='header_right_group']/div[@class='o_td_label']/label[@for='invoice_date'][1]"-->
+<!--                   position="attributes">-->
+<!--                <attribute name="string">Claim Date-->
+<!--                </attribute>-->
+
+<!--                <attribute name="attrs">{'readonly': [('claim_flag','=',True)]}-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//group[@id='header_right_group']/label[@for='journal_id'][1]"
+                   position="attributes">
+                <attribute name="attrs">{'invisible': [('claim_flag','=',True)]}
+                </attribute>
+            </xpath>
+            <xpath expr="//group[@id='header_right_group']/div[@name='journal_div']"
+                   position="attributes">
+                <attribute name="invisible">[('claim_flag','=',True)]
+                </attribute>
+            </xpath>
+            <xpath expr="//group[@id='header_right_group']/div[@class='d-flex']"
+                   position="attributes">
+                <attribute name="invisible">[('claim_flag','=',True)]
+                </attribute>
+            </xpath>
+
+
+            <xpath expr="//group[@id='header_right_group']/label[@for='invoice_payment_term_id'][1]"
+                   position="attributes">
+                <attribute name="invisible">('claim_flag','=',True)
+                </attribute>
+            </xpath>
+
+
+            <xpath expr="//group[@id='header_left_group']/div[@class='o_td_label']/label[@for='partner_id'][1]"
+                   position="attributes">
+                <attribute name="string">Supplier/Principle
+                </attribute>
+            </xpath>
+
+            <xpath expr="/form/sheet//field[@name='payment_reference']"
+                   position="attributes">
+                <attribute name="attrs">{'invisible': [('claim_flag','=',True)]}
+                </attribute>
+            </xpath>
+            <xpath expr="/form/sheet//field[@name='payment_reference']"
+                   position="after">
+                <field name="payment_reference" string="Description" attrs="{'invisible': [('claim_flag','!=',True)]}"/>
+            </xpath>
+
+            <xpath expr="/form/sheet//field[@name='partner_id']"
+                   position="after">
+                <field name="claim_type" attrs="{'invisible':[('claim_flag','=',False)],'required':[('claim_flag','=',True)]}"/>
+                <field name="dept" attrs="{'invisible':['|',('claim_flag','=',False),('claim_type','in',['nsplc',False])],'required':[('claim_flag','=',True),('claim_type','=','splc')]}"/>
+                <field name="brand" attrs="{'invisible':['|',('claim_flag','=',False),('claim_type','in',['splc',False])],'required':[('claim_flag','=',True),('claim_type','=','nsplc')]}"/>
+                <field name="from_date" attrs="{'invisible':[('claim_flag','=',False)],'required':[('claim_flag','=',True)]}"/>
+                <field name="to_date" attrs="{'invisible':[('claim_flag','=',False)],'required':[('claim_flag','=',True)]}"/>
+            </xpath>
+
+
+            <xpath expr="//tree/field[@name='product_id']" position="after">
+                <field name="nspr_id" force_save="1"
+                       attrs="{'column_invisible':['|',('parent.claim_flag','=',False),('parent.claim_type','in',['splc',False])]}"/>
+                <field name="order_id"
+                       attrs="{'column_invisible':['|',('parent.claim_flag','=',False),('parent.claim_type','in',['nsplc',False])]}"/>
+                <field name="brand" attrs="{'column_invisible':[('parent.claim_flag','=',False)]}"/>
+                <field name="service_order_date" force_save="1"
+                       attrs="{'column_invisible':['|',('parent.claim_flag','=',False),('parent.claim_type','in',['nsplc',False])]}"/>
+                <field name="received_date" force_save="1"
+                       attrs="{'column_invisible':['|',('parent.claim_flag','=',False),('parent.claim_type','in',['splc',False])]}"/>
+
+            </xpath>
+            <xpath expr="//tree/field[@name='branch_id']" position="after">
+                <field name="order_id" invisible="1"/>
+                <field name="nspr_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//tree/field[@name='branch_id']" position="after">
+                <field name="order_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//tree/field[@name='name']" position="attributes">
+                <attribute name="invisible">1
+                </attribute>
+            </xpath>
+            <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                <attribute name="string">Item Name
+                </attribute>
+            </xpath>
+
+        </field>
+
+    </record>
+
+    <record id='service_charge_claim_view_search' model='ir.ui.view'>
+        <field name="name">account.move.model.inherit.model.search</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <search string="Claim Type">
+                                <field name="claim_type"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_claim_type" context="{'group_by' : 'claim_type'}" string="Type"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_service_charge_claim1" model="ir.actions.act_window">
+        <field name="name">Service Charge Labour Claim to Principle</field>
+        <field name="res_model">account.move</field>
+
+        <field name="view_mode">tree,form</field>
+        <!--        <field name="view_id" ref="account.view_move_form"/>-->
+<!--                <field name="domain">[('name', '!=','/')]</field>-->
+        <field name="context">{'search_default_groupby_claim_type':1,'default_claim_flag': True,'default_move_type':'out_invoice'}
+        </field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('view_service_charge_claim_inherit_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_service_charge_claim_inherit_form')})]"/>
+        <field name="search_view_id" ref="service_charge_claim_view_search"/>
+    </record>
+
+    <menuitem id="service_charge_claim_id1"
+              name="Service Charge Claim to Principle"
+              action="action_service_charge_claim1"
+              parent="claim_management"
+              sequence="3"/>
+</odoo>
+
+
+<!--<?xml version="1.0" encoding="utf-8" ?>-->
+<!--<odoo>-->
+<!--    <record id="view_service_charge_claim_inherit_tree" model="ir.ui.view">-->
+<!--        <field name="name">account.move.claim.inherit.tree</field>-->
+<!--        <field name="model">account.move</field>-->
+<!--        <field name="inherit_id" ref="account.view_move_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree>-->
+<!--                <field name="claim_type" invisible="1"/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="view_service_charge_claim_inherit_form" model="ir.ui.view">-->
+<!--        <field name="name">account.move.inherit.form</field>-->
+<!--        <field name="model">account.move</field>-->
+<!--        <field name="priority">20</field>-->
+<!--        <field name="inherit_id" ref="account.view_move_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="/form/sheet//field[@name='ref']"-->
+<!--                   position="after">-->
+<!--                <field name="nspr_labour_claim_flag" invisible="1"/>-->
+<!--                <field name="claim_flag" invisible="1"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//button[@name='action_post']" position="before">-->
+
+
+<!--                <field name="claim_approve" invisible="1"/>-->
+<!--                <button name="action_approved"-->
+<!--                        string="Approval" type="object" class="oe_highlight" groups="base.group_user"-->
+<!--                        attrs="{'invisible': ['|','|','|',('state','=','draft'),('state','=','approved'), ('state','=','posted'),('claim_approve', '=', False)]}"/>-->
+
+<!--            </xpath>-->
+
+
+<!--            <xpath expr="/form/sheet//field[@name='ref']"-->
+<!--                   position="after">-->
+<!--                <field name="claim_flag" invisible="1"/>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//field[@name='branch_id']" position="after">-->
+<!--                <xpath expr="//field[@name='payment_reference']" position="move"/>-->
+<!--                <field name="per_unit_cost" attrs="{'invisible':[('claim_flag','=',False)]}"/>-->
+<!--            </xpath>-->
+
+
+<!--            <xpath expr="//group[@id='header_right_group']/div[@class='o_td_label']/label[@for='invoice_date'][1]"-->
+<!--                   position="attributes">-->
+<!--                <attribute name="string">Claim Date/Invoice date-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//group[@id='header_right_group']/label[@for='journal_id'][1]"-->
+<!--                   position="attributes">-->
+<!--                <attribute name="invisible">1-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//group[@id='header_right_group']/div[@name='journal_div']"-->
+<!--                   position="attributes">-->
+<!--                <attribute name="invisible">1-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//group[@id='header_right_group']/div[@class='d-flex']"-->
+<!--                   position="attributes">-->
+<!--                <attribute name="invisible">('claim_flag','=',True)-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+
+
+<!--            <xpath expr="//group[@id='header_right_group']/label[@for='invoice_payment_term_id'][1]"-->
+<!--                   position="attributes">-->
+<!--                <attribute name="invisible">('claim_flag','=',True)-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+<!--            &lt;!&ndash;            <xpath expr="//div[hasclass('o_td_label')]" position="before">&ndash;&gt;-->
+<!--            &lt;!&ndash;                <field name="partner" attrs="{'invisible':[('claim_flag','=',False)]}"/>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </xpath>&ndash;&gt;-->
+
+
+<!--            <xpath expr="//group[@id='header_left_group']/div[@class='o_td_label']/label[@for='partner_id'][1]"-->
+<!--                   position="attributes">-->
+<!--                <attribute name="string">Customer/Supplier</attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="/form/sheet//field[@name='payment_reference']"-->
+<!--                   position="attributes">-->
+<!--                <attribute name="string">Description-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="/form/sheet//field[@name='partner_id']"-->
+<!--                   position="after">-->
+<!--                <field name="claim_type" attrs="{'invisible':[('claim_flag','=',False)]}"/>-->
+<!--                <field name="dept" attrs="{'invisible':['|',('claim_flag','=',False),('claim_type','=','nsplc')]}"/>-->
+<!--                <field name="brand" attrs="{'invisible':['|',('claim_flag','=',False),('claim_type','=','splc')]}"/>-->
+<!--                <field name="from_date" attrs="{'invisible':[('claim_flag','=',False)]}"/>-->
+<!--                <field name="to_date" attrs="{'invisible':[('claim_flag','=',False)]}"/>-->
+<!--            </xpath>-->
+
+
+<!--            <xpath expr="//tree/field[@name='product_id']" position="after">-->
+<!--                <field name="nspr_id" force_save="1"-->
+<!--                       attrs="{'column_invisible':['|',('parent.claim_flag','=',False),('parent.claim_type','=','splc')]}"/>-->
+<!--                <field name="order_id"-->
+<!--                       attrs="{'column_invisible':['|',('parent.claim_flag','=',False),('parent.claim_type','=','nsplc')]}"/>-->
+<!--                <field name="brand" attrs="{'column_invisible':[('parent.claim_flag','=',False)]}"/>-->
+<!--                <field name="service_order_date" force_save="1"-->
+<!--                       attrs="{'column_invisible':['|',('parent.claim_flag','=',False),('parent.claim_type','=','nsplc')]}"/>-->
+<!--                <field name="received_date" force_save="1"-->
+<!--                       attrs="{'column_invisible':['|',('parent.claim_flag','=',False),('parent.claim_type','=','splc')]}"/>-->
+
+<!--            </xpath>-->
+<!--            <xpath expr="//tree/field[@name='branch_id']" position="after">-->
+<!--                <field name="order_id" invisible="1"/>-->
+<!--                <field name="nspr_id" invisible="1"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//tree/field[@name='branch_id']" position="after">-->
+<!--                <field name="order_id" invisible="1"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//tree/field[@name='name']" position="attributes">-->
+<!--                <attribute name="invisible">1-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//tree/field[@name='product_id']" position="attributes">-->
+<!--                <attribute name="string">Item Name-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+
+<!--        </field>-->
+
+<!--    </record>-->
+
+<!--    <record id='service_charge_claim_view_search' model='ir.ui.view'>-->
+<!--        <field name="name">account.move.model.inherit.model.search</field>-->
+<!--        <field name="model">account.move</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <search string="Claim Type">-->
+<!--                <field name="claim_type"/>-->
+<!--                <group expand="0" string="Group By">-->
+<!--                    <filter name="groupby_claim_type" context="{'group_by' : 'claim_type'}" string="Type"/>-->
+<!--                </group>-->
+<!--            </search>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="action_service_charge_claim" model="ir.actions.act_window">-->
+<!--        <field name="name">Service Charge Labour Claim to Principle</field>-->
+<!--        <field name="res_model">account.move</field>-->
+
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        &lt;!&ndash;        <field name="view_id" ref="account.view_move_form"/>&ndash;&gt;-->
+<!--        <field name="domain">[('name','!=','/')]</field>-->
+<!--        <field name="context">{'search_default_groupby_claim_type':1,'default_claim_flag':-->
+<!--            True,'default_move_type':'out_invoice'}-->
+<!--        </field>-->
+<!--        <field name="view_ids" eval="[(5, 0, 0),-->
+<!--                (0, 0, {'view_mode': 'tree', 'view_id': ref('view_service_charge_claim_inherit_tree')}),-->
+<!--                (0, 0, {'view_mode': 'form', 'view_id': ref('view_service_charge_claim_inherit_form')})]"/>-->
+<!--        <field name="search_view_id" ref="service_charge_claim_view_search"/>-->
+<!--    </record>-->
+
+<!--    <menuitem id="service_charge_claim_id"-->
+<!--              name="Service Charge Claim to Principle"-->
+<!--              action="action_service_charge_claim"-->
+<!--              parent="Labour_claim"-->
+<!--              sequence="3"/>-->
+<!--</odoo>-->

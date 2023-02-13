@@ -1,0 +1,53 @@
+
+.button1{
+    max-width:9% !important;
+    float: left;
+    justify-content: space-between;
+}
+
+.button2{
+    max-width:10% !important;
+    float: right;
+    justify-content: space-between;
+}
+
+.custom_class table{
+    width: 300px;
+}
+
+
+.custom_class th {
+    min-width: 130px !important;
+    width: 130px !important;
+    max-width: 500px !important
+}
+.custom_class th[data-name=item]{
+    position: sticky !important;
+    min-width:230px !important;
+    width: 230px !important;
+    max-width:500px !important;
+
+}
+
+.oe_form_sheet_width_wider .clearfix.position-relative.o_form_sheet {
+    max-width: 98% !important;
+}
+
+.report_font{
+    font-size:40px;
+    color:red;
+}
+.badge1{
+display:flex;
+margin-left:-15px;
+margin-top:-18px;
+background-color:#7C7BAD;
+border-radius:100%;
+
+;
+
+}
+.text{
+color:white;
+text-align: center;
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_field_service_department_tree" model="ir.ui.view">
+        <field name="name">field.service.department.tree</field>
+        <field name="model">field.service.department</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_field_service_department_form" model="ir.ui.view">
+        <field name="name">field.service.department.form</field>
+        <field name="model">field.service.department</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_field_service_department" model="ir.actions.act_window">
+        <field name="name">Department</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">field.service.department</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                List Your First Department!
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="field_service_department_menu"
+            name="Department"
+            action="action_field_service_department"
+            parent="configuration_main_menu"
+            sequence="100"/>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_non_serial_product_status_tree" model="ir.ui.view">
+        <field name="name">non.serial.product.status.tree</field>
+        <field name="model">non.serial.product.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nsp_status_reference"/>
+                <field name="nsp_status"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--    form-->
+    <record id="view_non_serial_product_status_form" model="ir.ui.view">
+        <field name="name">non.serial.product.status.form</field>
+        <field name="model">non.serial.product.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="nsp_status_reference"/>
+                        <field name="nsp_status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+
+
+    <record id="action_non_serial_product_status" model="ir.actions.act_window">
+        <field name="name">Non Serial Product Status</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">non.serial.product.status</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="">Create Non Serial Product Status</p>
+        </field>
+    </record>
+
+
+    <menuitem id="menu_non_serial_product_status"
+              name="Non Serial Product Status"
+              action="action_non_serial_product_status"
+              parent="configuration_main_menu"
+              sequence="100"/>
+
+
+</odoo>

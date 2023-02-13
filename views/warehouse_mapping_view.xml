@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_warehouse_mapping_tree" model="ir.ui.view">
+        <field name="name">warehouse.mapping.tree</field>
+        <field name="model">warehouse.mapping</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ref"/>
+                <field name="branch_id"/>
+                <field name="stock_type"/>
+                <field name="allowed_location" widget="many2many_tags"/>
+                <field name="default_location"/>
+                <field name="is_engineer_warehouse"/>
+            </tree>
+        </field>
+
+    </record>
+
+
+    <!--    form-->
+    <record id="view_warranty_status_form" model="ir.ui.view">
+        <field name="name">warehouse.mapping.form</field>
+        <field name="model">warehouse.mapping</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="ref"/>
+                            <field name="branch_id"/>
+                            <field name="stock_type"/>
+                        </group>
+                        <group>
+                            <field name="allowed_location" widget="many2many_tags"/>
+                            <field name="default_location"/>
+                            <field name="is_engineer_warehouse" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+
+
+    <record id="action_warehouse_mapping" model="ir.actions.act_window">
+        <field name="name">Warehouse Mapping</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">warehouse.mapping</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="">Create Warehouse Mapping</p>
+        </field>
+    </record>
+
+
+    <menuitem id="menu_warehouse_mapping"
+              name="Warehouse Mapping"
+              action="action_warehouse_mapping"
+              parent="configuration_main_menu"
+              sequence="-10"/>
+
+
+</odoo>

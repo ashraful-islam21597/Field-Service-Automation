@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+    <!--    <record id="view_field_service_monitoring_data_tree" model="ir.ui.view">-->
+    <!--        <field name="name">field.service.monitoring.data.tree</field>-->
+    <!--        <field name="model">field.service.monitoring.data</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <tree>-->
+    <!--                <field name="so_number"/>-->
+    <!--            </tree>-->
+
+
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="view_field_service_monitoring_report_tree" model="ir.ui.view">
+        <field name="name">field.service.monitoring.report.tree</field>
+        <field name="model">field.service.monitoring.report</field>
+        <field name="arch" type="xml">
+
+            <tree>
+                <field name="so_number"/>
+            </tree>
+
+        </field>
+    </record>
+
+
+    <record id="view_field_service_monitoring_report_form" model="ir.ui.view">
+        <field name="name">field.service.monitoring.report.form</field>
+        <field name="model">field.service.monitoring.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="so_number"/>
+                            <field name="monitor_type"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page string="Monitoring Report Report">
+                                <field name="monitoring_report_lines_ids" style="width:1060px; overflow-x: scroll;">
+                                    <tree editable="bottom" class="custom_class">
+                                        <field name="so_number"/>
+                                        <field name="model_state"/>
+                                        <field name="imei_no"/>
+                                        <field name="customer"/>
+                                        <field name="retailer"/>
+                                        <field name="mobile"/>
+                                        <field name="brand"/>
+                                        <field name="product"/>
+                                        <field name="cost_center"/>
+                                        <field name="warranty_status"/>
+                                        <field name="service_order_date"/>
+                                        <field name="state"/>
+                                        <field name="so_date"/>
+                                        <field name="so_created_by"/>
+                                        <field name="service_type"/>
+                                        <field name="repair_status"/>
+                                        <field name="item_receive_branch"/>
+                                        <field name="item_receive_status"/>
+                                        <field name="product_receive_date"/>
+                                        <field name="assign_by"/>
+                                        <field name="assign_for"/>
+                                        <field name="assign_date"/>
+                                        <field name="assign_status"/>
+                                        <field name="qa_status"/>
+                                        <field name="remarks"/>
+                                        <field name="qa_comment"/>
+                                        <field name="delivery_date"/>
+                                    </tree>
+                                    <form class="custom_class1">
+                                        <group>
+                                            <field name="so_number"/>
+                                            <field name="model_state"/>
+                                            <field name="imei_no"/>
+                                            <field name="customer"/>
+                                            <field name="retailer"/>
+                                            <field name="mobile"/>
+                                            <field name="brand"/>
+                                            <field name="product"/>
+                                            <field name="cost_center"/>
+                                            <field name="warranty_status"/>
+                                            <field name="service_order_date"/>
+                                            <field name="state"/>
+                                            <field name="so_date"/>
+                                            <field name="so_created_by"/>
+                                            <field name="service_type"/>
+                                            <field name="repair_status"/>
+                                            <field name="item_receive_branch"/>
+                                            <field name="item_receive_status"/>
+                                            <field name="product_receive_date"/>
+                                            <field name="assign_by"/>
+                                            <field name="assign_for"/>
+                                            <field name="assign_date"/>
+                                            <field name="assign_status"/>
+                                            <field name="qa_status"/>
+                                            <field name="remarks"/>
+                                            <field name="qa_comment"/>
+                                            <field name="delivery_date"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_report_monitoring_report" model="ir.actions.act_window">
+        <field name="name">Field Service Monitoring Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">field.service.monitoring.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="report_monitoring_report_menu"
+              name="Monitoring Report Report"
+              parent="monitoring_report_main_menu"
+              action="action_report_monitoring_report"
+              sequence="60"/>
+
+</odoo>

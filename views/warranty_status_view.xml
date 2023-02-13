@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_warranty_status_tree" model="ir.ui.view">
+        <field name="name">warranty.status.tree</field>
+        <field name="model">warranty.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--    form-->
+    <record id="view_warranty_status_form" model="ir.ui.view">
+        <field name="name">warranty.status.form</field>
+        <field name="model">warranty.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+
+
+    <record id="action_warranty_status" model="ir.actions.act_window">
+        <field name="name">Warranty Status</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">warranty.status</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="">Create Warranty Status</p>
+        </field>
+    </record>
+
+
+    <menuitem id="menu_warranty_status"
+              name="Warranty Status"
+              action="action_warranty_status"
+              parent="configuration_main_menu"
+              sequence="0"/>
+
+
+</odoo>

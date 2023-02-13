@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="field_service_inherit_view_tree" model="ir.ui.view">
+        <field name="name">field.service.tree</field>
+        <field name="model">field.service</field>
+        <field eval="20" name="priority"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="order_no"/>
+                <field name="order_date"/>
+                <field name="current_branch"/>
+                <field name="branch_name"/>
+                <field name="retail" optional="hide"/>
+                <field name="communication_media" optional="hide"/>
+                <field name="service_type" optional="hide"/>
+                <field name="in_attachment" optional="hide"/>
+                <field name="imei_no"/>
+                <field name="repair_status" invisible="1"/>
+                <field name="repair_status1"/>
+                <field name="invoice" optional="hide"/>
+                <field name="p_date" optional="hide"/>
+                <field name="product_id" optional="hide"/>
+                <field name="customer_id"/>
+                <field name="warranty_status" optional="hide"/>
+                <field name="warranty_expiry_date_l" optional="hide"/>
+                <field name="warranty_expiry_date_p" optional="hide"/>
+                <field name="guaranty_expiry_date" optional="hide"/>
+                <field name="warranty_void_reason_1" optional="hide"/>
+                <field name="departments"/>
+                <field name="priority_levels" optional="hide"/>
+                <field name="p_delivery_date"/>
+                <field name="customer_remark" optional="hide"/>
+                <button name="action_item_consumption_details" type="object"
+                        class="btn btn-link text-info" icon="fa-history" string="Consumption"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_ready_for_replacement1" model="ir.actions.act_window">
+        <field name="name">Ready For Replacement</field>
+        <field name="res_model">field.service</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'create':True,'edit':True}</field>
+        <field name="domain">[('repair_status1','=','Ready For Replacement')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('field_service_inherit_view_tree')})]"/>
+    </record>
+
+    <menuitem id="ready_for_replacement_menu"
+              name="Ready For Replacement"
+              action="action_ready_for_replacement1"
+              parent="menu_task_manager"
+              sequence="30"/>
+</odoo>

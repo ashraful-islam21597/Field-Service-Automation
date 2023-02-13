@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_assign_engineer_details_tree" model="ir.ui.view">
+        <field name="name">assign.engineer.details.tree</field>
+        <field name="model">assign.engineer.details</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="order_id"/>
+                <!--                <field name="is_qa"/>-->
+                <!--                <field name="qa_result"/>-->
+                <!--                <field name="qa"/>-->
+                <field name="contact"/>
+                <field name="customer"/>
+                <field name="item"/>
+            </tree>
+
+        </field>
+    </record>
+
+
+    <record id="view_assign_engineer_details_form" model="ir.ui.view">
+        <field name="name">assign.engineer.details.form</field>
+        <field name="model">assign.engineer.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="order_id"/>
+                        <field name="is_qa" invisible="1"/>
+                        <field name="qa_result" invisible="1"/>
+                        <!--                        <field name="qa"/>-->
+                        <field name="contact"/>
+                        <field name="customer"/>
+                        <field name="item"/>
+                        <field name="test" invisible="1"/>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page string="Assign To Engineer Details">
+                                <field name="assign_engineer_lines_ids">
+                                    <tree editable="bottom">
+                                        <!--                                        <field name="engineer_id"/>-->
+                                        <field name="engineer_name"/>
+                                        <!--                                        <field name="engineer_name1"/>-->
+                                        <!--                                        <field name="engineer_task"/>-->
+                                        <!--                                        <field name="task_count"/>-->
+                                        <field name="assign_date"/>
+                                        <!--                                        <field name="assign_status1"/>-->
+                                        <field name="assign_status2"/>
+                                        <field name="assign_for"/>
+                                        <field name="is_qa1" widget="boolean_toggle" force_save="1" readonly="1"/>
+                                        <field name="qa_result" force_save="1" readonly="1"/>
+                                        <field name="qa" force_save="1" readonly="1"/>
+                                        <field name="remarks"/>
+                                        <field name="delivery_date"/>
+                                        <!--                                        <field name="order_id"/>-->
+                                        <field name="engineer_name_domain" widget="many2many_tags" invisible="1"/>
+                                        <field name="possible_delivery_date"/>
+
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <!--                                            <field name="engineer_id"/>-->
+                                            <field name="engineer_name"/>
+                                            <!--                                            <field name="engineer_name1"/>-->
+                                            <!--                                            <field name="task_count"/>-->
+                                            <field name="assign_date"/>
+                                            <!--                                            <field name="assign_status1"/>-->
+                                            <field name="assign_status2"/>
+                                            <field name="assign_for"/>
+                                            <field name="is_qa1" force_save="1" readonly="1" widget="boolean_toggle"/>
+                                            <field name="qa_result" force_save="1" readonly="1"/>
+                                            <field name="qa" force_save="1" readonly="1"/>
+                                            <field name="remarks" force_save="1" readonly="1"/>
+                                            <field name="delivery_date"/>
+                                            <field name="engineer_name_domain" invisible="1"/>
+                                            <field name="possible_delivery_date"/>
+                                        </group>
+                                    </form>
+
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_assign_engineer_details" model="ir.actions.act_window">
+        <field name="name">Assign Engineer Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">assign.engineer.details</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Assign Engineer Details!
+            </p>
+        </field>
+    </record>
+
+<!--    <menuitem-->
+<!--            id="assign_engineer_details_menu"-->
+<!--            name="Assign Engineer Details"-->
+<!--            action="action_assign_engineer_details"-->
+<!--            parent="menu_task_manager"-->
+<!--            sequence="10"/>-->
+</odoo>

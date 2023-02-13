@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_field_service_tree" model="ir.ui.view">
+        <field name="model">field.service</field>
+        <!--        <field name="priority" eval="20"/>-->
+        <field name="arch" type="xml">
+            <tree>
+                <field name="priority" widget="priority"/>
+                <field name="order_no"/>
+                <field name="qa" invisible="1"/>
+                <field name="order_date"/>
+                <field name="current_branch" invisible="1"/>
+                <field name="origin_branch"/>
+                <field name="branch_name"/>
+                <field name="retail" optional="hide"/>
+                <field name="communication_media" optional="hide"/>
+                <field name="service_type" optional="hide"/>
+                <field name="in_attachment" optional="hide"/>
+                <field name="imei_no"/>
+                <field name="repair_status1" widget="badge"/>
+                <field name="invoice" optional="hide"/>
+                <field name="p_date" optional="hide"/>
+                <field name="product_id" optional="hide"/>
+                <field name="customer_id"/>
+                <field name="warranty_status" optional="hide"/>
+                <field name="warranty_expiry_date_l" optional="hide"/>
+                <field name="warranty_expiry_date_p" optional="hide"/>
+                <field name="guaranty_expiry_date" optional="hide"/>
+                <field name="warranty_void_reason_1" optional="hide"/>
+                <field name="departments"/>
+                <field name="priority_levels" optional="hide"/>
+                <field name="p_delivery_date"/>
+                <field name="customer_remark" optional="hide"/>
+                 <field name="engr_count" optional="hide" invisible="1"/>
+                <field name="is_transferable" optional="hide" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_field_service_form" model="ir.ui.view">
+        <field name="name">field.service.form</field>
+        <field name="model">field.service</field>
+        <!--        <field name="priority" eval="20"/>-->
+        <field name="arch" type="xml">
+            <form class="oe_form_sheet_width_wider">
+                <!--                 <field name="x1" invisible="0"/> -->
+                <header>
+                    <button name="reset_to_draft" string="Reset To Draft" states="approval"
+                            type="object"/>
+                    <button name="action_service_for_approval" string="Submit For Approval" class="oe_highlight"
+                            states="draft" type="object"/>
+                    <field name="so_approve" invisible='True'/>
+                    <button name="action_approval" string="Approve" class="oe_highlight"
+                            type="object" attrs="{'invisible': ['|','|','|',('so_approve', '=', False),
+                            ('state','=','draft'),('state','=','approval'),('state','=','cancel')]}"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            attrs="{'invisible': ['|','|',('so_approve', '=', False),('state','=','approval'),
+                            ('state','=','cancel')]}"/>
+                    <button name="action_invoice" class="oe_highlight" string="Create Invoice"
+                            type="object" data-hotkey="q"
+                            attrs="{'invisible': ['|',('state', '!=', 'approval'),('hide_invoice', '=', True)]}"/>
+                    <field name="state" widget="statusbar" nolabel="1"
+                           statusbar_visible="draft,service_for_approval,approval"/>
+
+                </header>
+
+                <sheet>
+                    <field name="engr_count" class="o_stat_value" invisible="1"/>
+
+                    <field name="item_receive_status" style="width:100% !important;" class="oe_inline" invisible="1"
+                           force_save="1" readonly="True"/>
+                    <field name="is_transferable" style="width:100% !important;" class="oe_inline" invisible="1"
+                           force_save="1" readonly="True"/>
+
+                    <div class="oe_button_box" name="button-box" style="height:45px;">
+                        <button class="button1 oe_stat_button" name="receive_button" type="object"
+                                string="Item Receive" icon="fa-check-square"
+                                attrs="{'invisible':[('receive_customer','=',True)]}">
+
+                        </button>
+                        <button class="button1 oe_stat_button bg-muted" name="receive_button" type="object"
+                                string="Item Receive" icon="fa-check-square"
+                                attrs="{'invisible':[('receive_customer','=',False)]}">
+
+                        </button>
+                        <button class="button1 oe_stat_button" name="transfer_button" type="object"
+                                string="Order Transfer" icon="fa-exchange"
+                                attrs="{'invisible':[('so_transfer','=',True)]}">
+                        </button>
+
+                        <button class="button1 oe_stat_button bg-muted" name="transfer_button" type="object"
+                                string="Order Transfer" icon="fa-exchange"
+                                attrs="{'invisible':[('so_transfer','=',False)]}">
+                        </button>
+                         <button class="button1 oe_stat_button" type="object" string="Assign Engineer"
+                                name="action_view_assign" icon="fa-user" attrs="{'invisible':[('engr_count','!=',0)]}">
+                        </button>
+                        <button class="button1 oe_stat_button bg-muted" type="object"
+                                name="action_view_assign" icon="fa-user" attrs="{'invisible':[('engr_count','=',0)]}">
+<!--                            <field name="engr_count" class="o_stat_value"/>-->
+                           <span  class="badge badge1 " name="invoice_count">
+                               <field  name="engr_count" class=" text"/>
+                           </span>
+                             <span class="o_stat_text" name="invoice_count">
+                               Assign Engineer
+                           </span>
+
+                        </button>
+                        <button class="button1 oe_stat_button" type="object" attrs="{'invisible':[('diagnosis_repair_count','!=',0)]}"
+                                string="Diagnosis and Repair" name="action_diagnosis_repair" icon="fa-bug">
+
+                        </button>
+                        <button class="button1 oe_stat_button bg-muted" type="object" attrs="{'invisible':[('diagnosis_repair_count','=',0)]}"
+                                name="action_diagnosis_repair" icon="fa-bug">
+                            <span  class="badge badge1 " name="invoice_count">
+                               <field  name="diagnosis_repair_count" class=" text"/>
+                           </span>
+                            <span class="o_stat_text" name="invoice_count">
+                               Diagnosis and Repair
+                           </span>
+
+                        </button>
+                        <button class="button1 oe_stat_button" name="quality_aasurance_smart_button" type="object"
+                                string="Quality Assurance" icon="fa-exchange">
+
+                        </button>
+                        <button class="button1 oe_stat_button" type="object" string="Item Consumption"
+                                name="action_item_consumption" icon="fa-wrench">
+
+                        </button>
+                        <button class="button1 oe_stat_button" type="object" string="Transport Activity"
+                                name="actions_test" icon="fa-truck">
+
+                        </button>
+                        <button class="button1 oe_stat_button" type="object" string="Communication" name="actions_test"
+                                icon="fa-phone">
+
+                        </button>
+                        <button class="button1 oe_stat_button" type="object" name="action_view_invoice"
+                                icon="fa-file">
+                            <div class="o_stat_info">
+                                <field name="invoice_count" class="o_stat_value"/>
+                                <span class="o_stat_text" name="invoice_count">Invoice</span>
+                            </div>
+                        </button>
+                        <button class="button1 oe_stat_button" type="object" string="Delivery" name="actions_delivery"
+                                icon="fa-truck">
+
+                        </button>
+                        <button class="button1 oe_stat_button" type="object" string="Remarks" name="action_remarks"
+                                icon="fa-comments-o">
+
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Received" style="width:10.7%% !important;" bg_color="bg-primary"
+                            attrs="{'invisible': ['|',('item_receive_status', '!=', 'Received'),('item_receive_status', '=', False)]}"/>
+                    <widget name="web_ribbon" title="Transfered" bg_color="bg-primary"
+                            attrs="{'invisible': [('item_receive_status', '!=', 'Transfered')]}"/>
+                    <div class="col col-md-2">
+                        <div>
+                            <field name="current_branch" class="oe_inline" invisible="1"/>
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col col-md-2">
+                            <label for="order_no"/>
+                            <div>
+                                <field name="order_no" class="oe_inline"/>
+
+                                <field name="hide_invoice" invisible="1"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="branch_name"/>
+                            <div>
+                                <field name="branch_name" class="oe_inline" force_save="1" readonly="True"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="retail"/>
+                            <div>
+                                <field name="retail" class="oe_inline" force_save="1"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="communication_media"/>
+                            <div>
+                                <field name="communication_media" class="oe_inline"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="service_type"/>
+                            <div>
+                                <field name="service_type" class="oe_inline"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="p_date"/>
+                            <div>
+                                <field name="p_date" class="oe_inline" force_save="1"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <field name="qa" invisible="1"/>
+                    <div class="row d-flex">
+                        <div class="col col-md-2">
+                            <label for="imei_no"/>
+                            <div>
+                                <field name="imei_no" force_save="1" class="oe_inline" placeholder="IMEI00001"
+                                       attrs="{'readonly': [('id', '!=', False),('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="invoice"/>
+                            <div>
+                                <field name="invoice" class="oe_inline" force_save="1"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="product_id"/>
+                            <div>
+                                <field name="product_id" class="oe_inline" force_save="1"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="customer_id"/>
+                            <div>
+                                <field name="customer_id" class="oe_inline" force_save="1"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="warranty_status"/>
+                            <div>
+                                <field name="warranty_status" class="oe_inline" force_save="1"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="warranty_expiry_date_l"/>
+                            <div>
+                                <field name="warranty_expiry_date_l" force_save="1"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col col-md-2">
+                            <label for="warranty_expiry_date_p"/>
+                            <div>
+                                <field name="warranty_expiry_date_p" force_save="1"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}" class="oe_inline"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="guaranty_expiry_date"/>
+                            <div>
+                                <field name="guaranty_expiry_date" class="oe_inline"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="warranty_void_reason_1"/>
+                            <div>
+                                <field name="warranty_void_reason_1" class="oe_inline"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="departments"/>
+                            <div>
+                                <field name="departments" class="oe_inline"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="phone"/>
+                            <div>
+                                <field name="phone" class="oe_inline"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="p_delivery_date"/>
+                            <div>
+                                <field name="p_delivery_date" class="oe_inline"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex" id="four">
+                        <div class="col col-md-2">
+                            <label for="priority_lavel_duration"/>
+                            <div>
+                                <field name="priority_lavel_duration" class="oe_inline"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="priority"/>
+                            <div>
+                                <h3>
+                                    <field name="priority" widget="priority" class="oe_inline"
+                                           attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="order_date"/>
+                            <div>
+                                <field name="order_date" class="oe_inline"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="so_transfer"/>
+                            <div>
+                                <field name="so_transfer" class="oe_inline" force_save="1" widget="boolean_toggle"
+                                       attrs="{'readonly': True}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="receive_customer"/>
+                            <div>
+                                <field name="receive_customer" class="oe_inline" force_save="1" widget="boolean_toggle"
+                                       attrs="{'readonly': True}"
+                                />
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="is_sms"/>
+                            <div>
+                                <field name="is_sms" class="oe_inline" widget="boolean_toggle"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex" id="five">
+                        <div class="col col-md-6">
+                            <label for="remark"/>
+                            <div>
+                                <field name="remark" style="width:100% !important;" class="oe_inline"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-6">
+                            <label for="customer_remark"/>
+                            <div>
+                                <field name="customer_remark" style="width:100% !important;" class="oe_inline"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <notebook>
+                        <page string="Symptoms" name="symptoms">
+                            <field name="symptoms_lines_ids" attrs="{'readonly': [('state', '=', 'approval')]}">
+                                <tree editable="bottom">
+                                    <field name="sl_no" readonly="1" invisible="1"/>
+                                    <field name="symptoms"/>
+                                    <field name="reason"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="sl_no" readonly="1" invisible="1"/>
+                                            <field name="symptoms"/>
+                                            <field name="reason"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Special Note" name="special_note">
+                            <field name="special_notes_ids">
+                                <tree editable="bottom">
+                                    <field name="sl_no" readonly="1"/>
+                                    <field name="wui"/>
+                                    <field name="wup"/>
+                                    <field name="bui"/>
+                                    <field name="bup"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="sl_no" readonly="1"/>
+                                            <field name="wui"/>
+                                            <field name="wup"/>
+                                        </group>
+                                        <group>
+                                            <field name="bui"/>
+                                            <field name="bup"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                    <div class="row" id="bottom">
+                        <div class="col col-md-2">
+                            <label for="in_attachment"/>
+                            <div>
+                                <field name="in_attachment" class="oe_inline"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+
+                        <div class="col col-md-2 ">
+                            <label for="repair_status1"/>
+                            <div>
+                                <field name="repair_status1" class="oe_inline" widget="badge"
+                                       force_save="1" readonly="True"/>
+                            </div>
+                        </div>
+                        <!--                        <div class="col col-md-2">-->
+                        <!--                            <label for="item_receive_status"/>-->
+                        <!--                            <div>-->
+                        <!--                                <field name="item_receive_status" style="width:100%% !important;" class="oe_inline"-->
+                        <!--                                       force_save="1" readonly="True"/>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <div class="col col-md-2">
+                            <label for="origin_branch"/>
+                            <div>
+                                <field name="origin_branch" style="width:98% !important;" class="oe_inline"
+                                       force_save="1" readonly="True"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="item_receive_branch"/>
+                            <div>
+                                <field name="item_receive_branch" style="width:98% !important;" class="oe_inline"
+                                       force_save="1" readonly="True"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="product_receive_date"/>
+                            <div>
+                                <field name="product_receive_date" class="oe_inline" force_save="1" readonly="1"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="delivery_date"/>
+                            <div>
+                                <field name="delivery_date" class="oe_inline"
+                                       readonly="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="oe_chatter" id="chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_field_service" model="ir.actions.act_window">
+        <field name="name">Service Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">field.service</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                        (0, 0, {'view_mode': 'tree', 'view_id': ref('view_field_service_tree')}),
+                        (0, 0, {'view_mode': 'form', 'view_id': ref('view_field_service_form')})]"/>
+
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your fast field service !</p>
+        </field>
+    </record>
+    <record id="action_field_service_optional" model="ir.actions.server">
+        <field name="name">Optional</field>
+        <field name="model_id" ref="model_field_service"/>
+        <field name="state">code</field>
+        <field name="code">action = model.server_action_so_tree_filter_by_branch()</field>
+    </record>
+    <menuitem id="menu_field_service_optional"
+              name="Service Order"
+              action="action_field_service_optional"
+              parent="menu_field_service_master"
+              sequence="30"/>
+
+    <menuitem id="menu_field_service"
+              name="Create Service Order"
+              parent="menu_field_service_master"
+              action="action_field_service"
+              sequence="-10"/>
+</odoo>

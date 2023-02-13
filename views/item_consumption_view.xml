@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_item_consumption_tree" model="ir.ui.view">
+        <field name="name">item.consumption.tree</field>
+        <field name="model">item.consumption</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="order_id" force_save="1"/>
+                <field name="imei_no" force_save="1"/>
+                <field name="branch_id" force_save="1"/>
+                <field name="current_branch" force_save="1"/>
+                <field name="order_date" force_save="1"/>
+                <field name="customer_id" force_save="1"/>
+                <field name="departments" force_save="1"/>
+                <field name="repair_status1" force_save="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_item_consumption_form" model="ir.ui.view">
+        <field name="name">item.consumption.form</field>
+        <field name="model">item.consumption</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" string="Confirm" class="oe_highlight" type="object"/>
+<!--                    <button name="action_reset_to_draft" string="Reset To Draft" type="object" class="oe_highlight" states="canceled"/>-->
+                    <field name="state" widget="statusbar" nolabel="1"
+                           statusbar_visible="draft,confirmed" invisible="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="order_id"/>
+                            <field name="branch_id" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="order_date" force_save="1"/>
+                            <field name="departments" force_save="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page string="Item Consumption">
+                                <field name="item_consumption_line_ids" style="width:1060px; overflow-x: scroll;">
+                                    <tree editable="bottom" class="custom_class" delete="0">
+                                        <field name="part"/>
+                                        <field name="part_check"/>
+                                        <field name="qty"/>
+                                        <field name="consumption_status"/>
+                                        <field name="bad_ct_serial_no"/>
+                                        <field name="good_ct_serial_no"/>
+                                        <field name="good_ct" invisible="1"/>
+                                        <field name="task_status1" invisible="1"/>
+                                        <field name="remark"/>
+                                        <button name="cancel_consumption" string="Cancel" type="object" icon="fa-bullseye"/>
+                                        <field name="rep_seq" invisible="1"/>
+                                    </tree>
+                                    <form class="custom_class1">
+                                        <group>
+                                            <field name="part"/>
+                                            <field name="qty"/>
+                                            <field name="consumption_status" force_save="1"/>
+                                            <field name="bad_ct_serial_no" force_save="1"/>
+                                            <field name="good_ct_serial_no" force_save="1"/>
+                                            <field name="good_ct" invisible="1"/>
+                                            <field name="task_status1" invisible="1"/>
+                                            <field name="remark" force_save="1"/>
+                                            <button name="cancel_consumption" string="Cancel" type="object"/>
+                                            <field name="rep_seq" invisible="1"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_item_consumption" model="ir.actions.act_window">
+        <field name="name">Item Consumption</field>
+        <field name="res_model">item.consumption</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="item_consumption_menu"
+              name="Item Consumption"
+              action="action_item_consumption"
+              parent="configuration_main_menu"
+              sequence="50"
+    />
+</odoo>

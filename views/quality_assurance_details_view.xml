@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_service_order_quality_tree" model="ir.ui.view">
+        <field name="name">field.service.inherit.tree</field>
+        <field name="model">field.service</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="order_no"/>
+
+                <field name="qa" invisible="1"/>
+                <field name="current_branch"/>
+                <field name="departments"/>
+                <field name="order_date"/>
+                <field name="retail" optional="hide"/>
+                <field name="product_id"/>
+                <field name="imei_no"/>
+                <field name="communication_media" optional="hide"/>
+                <field name="p_delivery_date"/>
+                <field name="item_receive_status"/>
+                <field name="product_receive_date"/>
+                <field name="item_receive_branch"/>
+                <field name="warranty_status"/>
+                <field name="so_transfer"/>
+                <field name="repair_status1"/>
+                <field name="invoice" optional="hide"/>
+                <field name="p_date" optional="hide"/>
+                <field name="customer_id"/>
+                <field name="warranty_expiry_date_l" optional="hide"/>
+                <field name="warranty_expiry_date_p" optional="hide"/>
+                <field name="guaranty_expiry_date" optional="hide"/>
+                <field name="warranty_void_reason_1" optional="hide"/>
+                <field name="customer_remark" optional="hide"/>
+                <!--                <button name="action_test1" type="object"-->
+                <!--                        class="btn btn-link text-info" icon="fa-history" string="Qa"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_service_order_quality_form" model="ir.ui.view">
+        <field name="name">field.service.form.quality</field>
+        <field name="model">field.service</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form class="oe_form_sheet_width_wider">
+                <div role="alert" class="alert bg-muted" attrs="{'invisible':[('qa','=',True)]}">
+<!--                    attrs="{'invisible':[('qa','=',True)]}"-->
+                    <div class="d-flex justify-content-center">QA is not assigned! Do you want to assign yourself as a QA?</div>
+
+                    <div class="d-flex justify-content-center">
+                        <button name="action_qa_assign" style="margin:5px;padding: 2px 15px  2px 15px;" type="object"
+                                class="oe_highlight bg-success">Yes
+                        </button>
+
+                    <button style="margin:5px;padding: 2px 15px  2px 15px;" name="action_qa_assign_cancel" type="object"
+                            class="bg-danger">No
+                    </button>
+                    </div>
+
+
+                </div>
+                <sheet>
+                    <field name="state" invisible="1"/>
+                    <field name="qa" invisible="1"/>
+
+
+                    <div class="row d-flex">
+                        <div class="col col-md-2">
+                            <label for="order_no"/>
+                            <div>
+                                <field name="order_no" class="oe_inline"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="branch_name"/>
+                            <div>
+                                <field name="branch_name" class="oe_inline" force_save="1"
+                                       readonly="True"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="retail"/>
+                            <div>
+                                <field name="retail" class="oe_inline" force_save="1"
+                                       attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="communication_media"/>
+                            <div>
+                                <field name="communication_media" class="oe_inline"
+                                       force_save="1" readonly="1"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="service_type"/>
+                            <div>
+                                <field name="service_type" class="oe_inline"
+                                       force_save="1" readonly="1"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="p_date"/>
+                            <div>
+                                <field name="p_date" class="oe_inline"
+                                       force_save="1" readonly="1"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col col-md-2">
+                            <label for="imei_no"/>
+                            <div>
+                                <field name="imei_no" force_save="1" readonly="1" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <div class="col col-md-2">
+                            <label for="invoice"/>
+                            <div>
+                                <field name="invoice" class="oe_inline"
+                                       force_save="1" readonly="1"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="product_id"/>
+                            <div>
+                                <field name="product_id" class="oe_inline" force_save="1" readonly="1"
+                                />
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="customer_id"/>
+                            <div>
+                                <field name="customer_id" class="oe_inline" force_save="1" readonly="1"
+                                />
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="warranty_status"/>
+                            <div>
+                                <field name="warranty_status" class="oe_inline" force_save="1" readonly="1"
+                                />
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="warranty_expiry_date_l"/>
+                            <div>
+                                <field name="warranty_expiry_date_l"
+                                       force_save="1" readonly="1" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col col-md-2">
+                            <label for="warranty_expiry_date_p"/>
+                            <div>
+                                <field name="warranty_expiry_date_p"
+                                       force_save="1" readonly="1" class="oe_inline"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="guaranty_expiry_date"/>
+                            <div>
+                                <field name="guaranty_expiry_date" class="oe_inline"
+                                       force_save="1" readonly="1"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="warranty_void_reason_1"/>
+                            <div>
+                                <field name="warranty_void_reason_1" class="oe_inline"
+                                       force_save="1" readonly="1"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="departments"/>
+                            <div>
+                                <field name="departments" class="oe_inline"
+                                       force_save="1" readonly="1"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="phone"/>
+                            <div>
+                                <field name="phone" class="oe_inline"
+                                       force_save="1" readonly="1"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="p_delivery_date"/>
+                            <div>
+                                <field name="p_delivery_date" class="oe_inline"
+                                       force_save="1" readonly="1"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col col-md-2">
+                            <label for="item_receive_branch"/>
+                            <div>
+                                <field name="item_receive_branch" style="width:98% !important;" class="oe_inline"
+                                       force_save="1"
+                                       readonly="True"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="origin_branch"/>
+                            <div>
+                                <field name="origin_branch" style="width:98% !important;" class="oe_inline"
+                                       force_save="1"
+                                       readonly="True"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="order_date"/>
+                            <div>
+                                <field name="order_date" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <div class="col col-md-2">
+                            <label for="product_receive_date"/>
+                            <div>
+                                <field name="product_receive_date" class="oe_inline" force_save="1" readonly="1"
+                                />
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="remark"/>
+                            <div>
+                                <field name="remark" class="oe_inline"
+                                       force_save="1" readonly="1"/>
+                            </div>
+                        </div>
+                        <div class="col col-md-2">
+                            <label for="repair_status1"/>
+                            <div>
+                                <field name="repair_status1" attrs="{'readonly': [('state', '=', 'approval')]}"/>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row d-flex">
+                    </div>
+
+                    <notebook>
+
+                        <page string="QA Check List">
+                            <div class="col-md-4">
+                                <group>
+                                    <field name="qa_check_list_id"/>
+                                </group>
+
+
+                            </div>
+
+                            <field name="qc_line_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="description1"/>
+                                    <field name="checked"/>
+
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+
+                                        </group>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="description"/>
+                                            <field name="checked"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Quality Assurance Details">
+
+                            <field name="qa_details_ids" force_save="1" attrs="{'readonly':[('qa','=',False)]}"
+                                   style="width:1260px; overflow-x: scroll;">
+                                <tree editable="bottom">
+                                    <field name="order_id"/>
+                                    <field name="create_date"/>
+                                    <field name="rep_seq"/>
+                                    <field name="product_id"/>
+                                    <field name="warranty_status"/>
+                                    <field name="symptoms"/>
+                                    <field name="problem"/>
+                                    <field name="order_date"/>
+                                    <field name="diagnosis_date"/>
+                                    <field name="service_charge"/>
+                                    <field name="total_amount"/>
+                                    <field name="customer_confirmaation"/>
+                                    <field name="task_status" readonly="1"/>
+                                    <field name="remarks"/>
+                                    <field name="qa_status"/>
+                                    <field name="qa_result" invisible="1"/>
+                                    <field name="qa_comments"/>
+                                    <field name="so_id" invisible="1"/>
+                                    <field name="qa_remarks"/>
+                                    <field name="qa_delivery_date"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="order_id"/>
+                                            <field name="create_date"/>
+                                            <field name="rep_seq"/>
+                                            <field name="product_id"/>
+                                            <field name="warranty_status"/>
+                                            <field name="symptoms"/>
+                                            <field name="problem"/>
+                                            <field name="order_date"/>
+                                            <field name="diagnosis_date"/>
+                                            <field name="service_charge"/>
+                                            <field name="total_amount"/>
+                                            <field name="customer_confirmaation"/>
+                                            <field name="task_status" force_save="1" readonly="1"/>
+                                            <field name="remarks"/>
+                                            <field name="qa_status" />
+                                            <field name="qa_result" invisible="1"/>
+                                            <field name="qa_comments"/>
+                                            <field name="so_id" invisible="1"/>
+                                            <field name="qa_remarks"/>
+                                            <field name="qa_delivery_date"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+
+                        </page>
+                        <page string="Quality Assurance History">
+                            <field name="qa_history_ids">
+                                <tree editable="bottom">
+
+                                    <field name="order_id" optional="hide"/>
+                                    <field name="repair_status"/>
+                                    <field name="create_date"/>
+                                    <field name="created_by"/>
+                                    <field name="qa_date"/>
+                                    <field name="qa_status"/>
+                                    <field name="qa_remarks"/>
+                                    <field name="qa_comments"/>
+                                    <field name="qa_delivery_date"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="order_id" optional="hide"/>
+                                            <field name="repair_status"/>
+                                            <field name="create_date"/>
+                                            <field name="created_by"/>
+                                            <field name="qa_date"/>
+                                            <field name="qa_status"/>
+                                            <field name="qa_remarks"/>
+                                            <field name="qa_comments"/>
+                                            <field name="qa_delivery_date"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <!--    ir.actions.server-->
+
+    <record id="action_service_order_quality" model="ir.actions.server">
+        <field name="name">My Task QA</field>
+        <field name="model_id" ref="model_field_service"/>
+        <field name="state">code</field>
+
+        <field name="code">action = model._quality_assurance_view_render()</field>
+
+    </record>
+
+
+    <menuitem id="menu_quality_assurance"
+              name="My Task QA"
+              parent="menu_task_manager"
+              action="action_service_order_quality"
+              sequence="100"/>
+
+
+    <!--    using domain force-->
+
+
+    <!--        <record id="action_qa_new" model="ir.actions.act_window">-->
+    <!--            <field name="type">ir.actions.act_window</field>-->
+    <!--            <field name="name">Quality Assurance</field>-->
+    <!--            <field name="res_model">field.service</field>-->
+    <!--            <field name="view_mode">tree,form</field>-->
+    <!--            <field name="domain">['|',-->
+    <!--                        ('repair_status1', '=', 'Ready For QC'),-->
+    <!--                        ('repair_status1', '=', 'Under QC')]</field>-->
+    <!--            <field name="context">{}</field>-->
+    <!--            &lt;!&ndash;         <field name="domain">[('picking_type_code','=','internal'),('state','=','assigned')]</field>&ndash;&gt;-->
+    <!--            <field name="view_ids" eval="[(5, 0, 0),-->
+    <!--                    (0, 0, {'view_mode': 'tree', 'view_id': ref('usl_service_erp.view_service_order_quality_tree')}),-->
+    <!--                    (0, 0, {'view_mode': 'form', 'view_id': ref('usl_service_erp.view_service_order_quality_form')})]"/>-->
+    <!--            <field name="help" type="html">-->
+    <!--                <p class="">Create Service Order transfer</p>-->
+    <!--            </field>-->
+    <!--        </record>-->
+
+<!--            <record model="ir.rule" id="so_tree_rule1">-->
+<!--                <field name="name">SO Tree Rule</field>-->
+<!--                <field name="model_id" ref="model_field_service"/>-->
+
+<!--                <field eval="True" name="global"/>-->
+<!--                <field name="domain_force">user.get_so_domain()</field>-->
+<!--            </record>-->
+
+
+<!--            <menuitem id="QA_id_new"-->
+<!--                      name="My Task QA"-->
+<!--                      action="action_qa_new"-->
+<!--                      parent="menu_task_manager"-->
+<!--                      sequence="105"/>-->
+</odoo>

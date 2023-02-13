@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_claim_management_tree" model="ir.ui.view">
+        <field name="name">claim.management.tree</field>
+        <field name="model">claim.management</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="type" invisible="1"/>
+                <field name="dept" attrs="{'visible':[('type','=','splc')]}"/>
+                <field name="brand" attrs="{'visible':[('type','=','nsplc')]}"/>
+                <field name="claim_date1"/>
+                <field name="periods"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_claim_management_tree_form" model="ir.ui.view">
+        <field name="name">claim.management.form</field>
+        <field name="model">claim.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="type"/>
+                        </group>
+
+                        <group>
+                            <field name="claim_date1"/>
+                        </group>
+                        <group>
+                            <field name="periods"/>
+                        </group>
+                        <group>
+                            <field name="dept" options="{'no_create': True}" attrs="{'invisible':['|',('type','=','nsplc'),('type','=',False)],'required':[('type','=','splc')]}"/>
+                            <field name="brand" options="{'no_create': True}" attrs="{'invisible':['|',('type','=','splc'),('type','=',False)],'required':[('type','=','nsplc')]}"/>
+                        </group>
+                        <group>
+                            <field name="unite_price"/>
+                        </group>
+
+
+                    </group>
+                    <notebook>
+                        <page string="Accounting">
+                            <group>
+                                <group>
+                                <field name="property_account_income_id"/>
+                                <field name="property_account_creditor_price_difference"/>
+                            </group>
+                            <group>
+                                <field name="property_account_expense_id"/>
+                            </group>
+                            </group>
+
+
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='claim_view_search' model='ir.ui.view'>
+        <field name="name">claim.management.model.search</field>
+        <field name="model">claim.management</field>
+        <field name="arch" type="xml">
+            <search string="Claim Type">
+                <field name="type"/>
+                <group expand="1" string="Group By">
+                    <filter name="groupby_type" context="{'group_by' : 'type'}" string="Type"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_claim_management" model="ir.actions.act_window">
+        <field name="name">Claim Management</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">claim.management</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_groupby_type':1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                List Your Communication Media!
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="claim_management_menu"
+            name="Claim Configuration"
+            action="action_claim_management"
+            parent="configuration_main_menu"
+            sequence="40"/>
+</odoo>

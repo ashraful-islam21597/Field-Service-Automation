@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="service_order_transfer_report">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="doc" t-value="doc.with_context(lang=lang)"/>
+                <t t-if="not o" t-set="o" t-value="doc"/>
+                <t t-if="not company">
+                    <!-- Multicompany -->
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+                <div class="row mb-2">
+                    <div class="col-8 mb4">
+                        <img alt="img" t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                             style="max-height:90px; width:200px;"/>
+                        <div style="font-size: 13px !important;">
+                            <span t-if="company.street" t-field="company.street"/>
+                            <span t-if="company.street2" t-field="company.street2"/>
+                            <span t-if="company.city" t-field="company.city"/>
+                            <br/>
+                            <span t-if="company.state_id" t-field="company.state_id"/>
+                            <span t-if="company.country_id" t-field="company.country_id"/>
+                        </div>
+
+                    </div>
+                    <div class="col-4 text-left" style="font-size: 13px !important;">
+                        Phone:
+                        <span t-field="company.phone"/>
+                        <br/>
+                        Mobile:
+                        <span t-field="company.mobile"/>
+                        <br/>
+                        Email:
+                        <span t-field="company.email"/>
+                        <br/>
+                        Website:
+                        <span t-field="company.website"/>
+                    </div>
+                </div>
+
+                <hr/>
+
+
+                    <h4 class="font-weight-bold" style="text-align:center;">Service Order Transfer
+                    </h4>
+
+
+                <br/>
+
+
+                <div class="row">
+                     <div style="text-align:right;"  class="col-12 mb-3">
+                         <div>
+                             <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)"
+                                        style="width:300px;height:30px;clear:right;margin-right:5px;"/>
+                         </div>
+                          <span style="margin-right:60px;font-size:12px;letter-spacing:15px;" t-field="o.name"/>
+
+                    </div>
+
+
+                    <div class="col-6">
+                        <div>
+                            <strong>Transfer No :</strong>
+                            <span t-field="o.name"/>
+                        </div>
+                        <div>
+                            <strong>Transfer Date :</strong>
+                            <span t-field="o.scheduled_date"/>
+                        </div>
+                        <div>
+                            <strong>Address :</strong>
+                            <span t-field="o.branch_id.address"/>
+                        </div>
+                        <div>
+                            <strong>Delivery By :</strong>
+                            <span t-field="o.picking_created_user.partner_id.name"/>
+                        </div>
+                         <div>
+                            <strong>Remarks :</strong>
+                            <span t-field="o.remarks"/>
+                        </div>
+
+                    </div>
+
+                    <div class="col-6" style="padding-left:20px;">
+                        <div>
+                            <strong>Delivery to :</strong>
+                            <span t-field="o.partner_id.name"/>
+                        </div>
+                        <div>
+                            <strong>From Branch :</strong>
+                            <span t-field="o.branch_id"/>
+                        </div>
+                        <div>
+                            <strong>to Branch :</strong>
+                            <span t-field="o.to_branch"/>
+                        </div>
+                        <div>
+                            <strong>Contact :</strong>
+                            <span t-field="o.partner_id.phone"/>
+                        </div>
+                        <div>
+                            <strong>Email :</strong>
+                            <span t-field="o.partner_id.email"/>
+                        </div>
+<!--                        <div>-->
+<!--                            <strong>SO Remarks :</strong>-->
+<!--                            <span t-field="o.service_order_id.remark"/>-->
+<!--                        </div>-->
+
+                    </div>
+                </div>
+                <div  class="watermark "
+                     style="display: block; margin:auto; margin-top:100px; position:absolute;opacity:0.25;font-size:6em;width:100%;text-align:center;z-index:1000;transform: rotate(-60deg);">
+                     <t t-if="o.state == 'assigned'">Transferred</t>
+                     <t t-if="o.state == 'done'">Received</t>
+
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="col-12" style="border: 1px solid;padding:5px;">
+                            <tr style="border: 1px solid;padding:5px;">
+                                <th style="border: 1px solid;padding:5px;">SL No</th>
+                                <th style="border: 1px solid;padding:5px;">Customer</th>
+                                <th style="border: 1px solid;padding:5px;">Service Order No</th>
+                                <th style="border: 1px solid;padding:5px;">Item Description</th>
+                                <th style="border: 1px solid;padding:5px;">IMEI/Serial No</th>
+                                <th style="border: 1px solid;padding:5px;">QTY</th>
+                            </tr>
+                            <t t-set="i" t-value="0"/>
+                            <t t-foreach="o.move_ids_without_package" t-as="m">
+                                <t t-set="i" t-value="i+1"/>
+
+                                <tr style="border: 1px solid;">
+                                    <td style="border: 1px solid;padding:5px;">
+                                        <t t-esc="i"/>
+                                    </td>
+                                    <td style="border: 1px solid;padding:5px;">
+                                        <span t-field="m.order_ref"/>
+                                    </td>
+                                    <td style="border: 1px solid;padding:5px;">
+                                        <span t-field="m.order_id"/>
+                                    </td>
+                                    <td style="border: 1px solid;padding:5px;">
+                                        <span t-field="m.product_id"/>
+                                    </td>
+                                    <td style="border: 1px solid;padding:5px;">
+                                        <span t-field="m.serial_no"/>
+                                    </td>
+                                    <td style="border: 1px solid;padding:5px;">1</td>
+                                </tr>
+                            </t>
+
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </t>
+        </t>
+    </template>
+
+
+</odoo>
