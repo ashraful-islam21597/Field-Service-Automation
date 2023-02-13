@@ -39,10 +39,8 @@
     <record id="view_field_service_form" model="ir.ui.view">
         <field name="name">field.service.form</field>
         <field name="model">field.service</field>
-        <!--        <field name="priority" eval="20"/>-->
         <field name="arch" type="xml">
             <form class="oe_form_sheet_width_wider">
-                <!--                 <field name="x1" invisible="0"/> -->
                 <header>
                     <button name="reset_to_draft" string="Reset To Draft" states="approval"
                             type="object"/>

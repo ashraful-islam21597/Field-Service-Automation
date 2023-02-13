@@ -20,17 +20,19 @@ class FieldService(models.Model):
     retail = fields.Many2one(
         'res.partner',
         string='Dealer/Retail',
-        domain=['|', ('category_id', '=', 'Dealer'), ('category_id', '=', 'Retailer')], tracking=True,required=True)
-    communication_media = fields.Many2one('communication.media', string='Communication Media', tracking=True,required=True)
+        domain=['|', ('category_id', '=', 'Dealer'), ('category_id', '=', 'Retailer')], tracking=True, required=True)
+    communication_media = fields.Many2one('communication.media', string='Communication Media', tracking=True,
+                                          required=True)
 
     service_type = fields.Many2one('service.type', string='Service Type', required=True, tracking=True)
-    imei_no = fields.Char(string='IMEI/Serial No', readonly=False, state={'draft': [('readonly', False)]},required=True)
-    product_id = fields.Many2one('product.product', string="Product", readonly=True,required=True,
+    imei_no = fields.Char(string='IMEI/Serial No', readonly=False, state={'draft': [('readonly', False)]},
+                          required=True)
+    product_id = fields.Many2one('product.product', string="Product", readonly=True, required=True,
                                  state={'draft': [('readonly', False)]}, tracking=True)
     invoice = fields.Char(string='Invoice No', readonly=True, state={'draft': [('readonly', False)]}, tracking=True)
     in_attachment = fields.Binary(string='Invoice Attachment', tracking=True)
     p_date = fields.Date(string='POP Date', tracking=True)
-    customer_id = fields.Many2one('res.partner', string='Customer', readonly=True,required=True,
+    customer_id = fields.Many2one('res.partner', string='Customer', readonly=True, required=True,
                                   state={'draft': [('readonly', False)]}, tracking=True)
     warranty_status = fields.Many2one('warranty.status', string=' Warranty Status', tracking=True)
     warranty_expiry_date_l = fields.Date(string='Warranty Expiry Date(L)',
@@ -41,7 +43,7 @@ class FieldService(models.Model):
     guaranty_expiry_date = fields.Date(string='Guaranty Expiry Date')
     departments = fields.Many2one('field.service.department', required=True, string='Department', tracking=True, )
     priority_lavel_duration = fields.Char(string='Priority Level Duration', tracking=True)
-    phone = fields.Char(string='Phone', tracking=True,required=True,size=11)
+    phone = fields.Char(string='Phone', tracking=True, required=True, size=11)
     user_id = fields.Many2one('res.users', string='users', default=lambda self: self.env.user, tracking=True)
     priority = fields.Selection([
         ('0', 'Normal'),
@@ -57,7 +59,7 @@ class FieldService(models.Model):
     ], default='draft', string="Status", required=True)
 
     priority_levels = fields.Many2one('field.service.priority.level', string='Priority Level', tracking=True)
-    p_delivery_date = fields.Date(string='Possible Delivery Date', tracking=True,required=True)
+    p_delivery_date = fields.Date(string='Possible Delivery Date', tracking=True, required=True)
     customer_remark = fields.Html(string='Customer Remark', tracking=True)
     remark = fields.Html(string='Remark', tracking=True)
 
@@ -83,19 +85,20 @@ class FieldService(models.Model):
     so_transfer = fields.Boolean(string='Is So Transfer', tracking=True)
     is_sms = fields.Boolean(string='Is SMS', tracking=True)
     special_note = fields.Char(string="Special Note", tracking=True)
-    branch_name = fields.Many2one('res.branch', required=True, tracking=True,default=lambda self: self.env.user.branch_id)
+    branch_name = fields.Many2one('res.branch', required=True, tracking=True,
+                                  default=lambda self: self.env.user.branch_id)
     active = fields.Boolean(string='Active', default=True, copy=False, tracking=True)
     current_branch = fields.Many2one('res.branch', tracking=True)
     invoice_count = fields.Integer(string='Invoice Count', compute='_compute_invoice_count', tracking=True)
     so_approve = fields.Boolean(compute='_so_approve', string='approve', default=False)
     hide_invoice = fields.Boolean(compute="_hide_button_invoice", string="", )
     user_branch = fields.Many2one('res.branch', string="User Branch")
-    #receive_creted = fields.Boolean(string='Receive')
-    is_transferable = fields.Boolean(string='Transfer',default=True)
+    # receive_creted = fields.Boolean(string='Receive')
+    is_transferable = fields.Boolean(string='Transfer', default=True)
 
     claim_tag = fields.Boolean(string="Has Claim")
     origin_branch = fields.Many2one('res.branch', default=lambda self: self.env.user.branch_id)
-    engr_count=fields.Integer(string="Assigned Engineers")
+    engr_count = fields.Integer(string="Assigned Engineers")
     diagnosis_repair_count = fields.Integer(string="Total Number of Diagnosis & Repair")
 
     @api.onchange('warranty_void_reason_1')
@@ -103,11 +106,10 @@ class FieldService(models.Model):
 
         if self.warranty_void_reason_1.id != False:
             warranty_status = self.env['warranty.status'].search([('name', '=', 'Non Warranty')])
-            self.warranty_status=warranty_status.id
+            self.warranty_status = warranty_status.id
         else:
             warranty_status = self.env['warranty.status'].search([('name', '=', 'Warranty')])
             self.warranty_status = warranty_status.id
-
 
     def server_action_so_tree_filter_by_branch(self):
         form_id = self.env.ref('usl_service_erp.view_field_service_form').id,
@@ -122,7 +124,6 @@ class FieldService(models.Model):
             'views': [(tree_id, 'tree'), (form_id, 'form')],
             'target': 'current',
         }
-
 
     def _so_approve(self):
         for rec in self:
@@ -227,15 +228,15 @@ class FieldService(models.Model):
             if rec.imei_no:
                 if rec.env['field.service.data'].search([('serial_no', '=', rec.imei_no)]):
                     imei_number = rec.env['field.service.data'].search([('serial_no', '=', rec.imei_no)])
-                    vals={
-                        'product_id':imei_number.product_id,
-                        'customer_id':imei_number.customer_id,
-                        'warranty_status':imei_number.warranty_status,
-                        'invoice':imei_number.invoice,
-                        'warranty_expiry_date_l':imei_number.warranty_expiry_date_l,
-                        'warranty_expiry_date_p':imei_number.warranty_expiry_date_p,
-                        'current_branch':self.env.user.branch_id.id,
-                        'p_date':imei_number.p_date
+                    vals = {
+                        'product_id': imei_number.product_id,
+                        'customer_id': imei_number.customer_id,
+                        'warranty_status': imei_number.warranty_status,
+                        'invoice': imei_number.invoice,
+                        'warranty_expiry_date_l': imei_number.warranty_expiry_date_l,
+                        'warranty_expiry_date_p': imei_number.warranty_expiry_date_p,
+                        'current_branch': self.env.user.branch_id.id,
+                        'p_date': imei_number.p_date
                     }
                     self.update(vals)
                 else:
@@ -243,7 +244,7 @@ class FieldService(models.Model):
 
     def write(self, vals):
         if vals.get('repair_status1'):
-            if self.env['repair.status'].search([('id','=',vals.get('repair_status1'))]).is_transfer == False:
+            if self.env['repair.status'].search([('id', '=', vals.get('repair_status1'))]).is_transfer == False:
                 vals.update({'is_transferable': False})
         self.set_line_number()
 
@@ -459,7 +460,6 @@ class FieldService(models.Model):
                     ('company_id', '=', user.company_id.id),
                     ('lot_stock_id', '=', location_id_returnable_damage.location_id.id),
 
-
                 ])
 
 
@@ -495,7 +495,7 @@ class FieldService(models.Model):
                                          'default_picking_type_id': picking_type.id,
                                          'default_partner_id': self.customer_id.id,
 
-                                         #'default_location_dest_id': picking_type.default_location_dest_id.id,
+                                         # 'default_location_dest_id': picking_type.default_location_dest_id.id,
                                          'default_location_dest_id': location_id_returnable_damage.id,
                                          'default_location_id': 4,
                                          }
@@ -537,7 +537,6 @@ class FieldService(models.Model):
     def action_service_for_approval(self):
         for rec in self:
             rec.state = 'service_for_approval'
-
 
     def action_approval(self):
         for rec in self:
@@ -650,8 +649,6 @@ class ResUsers(models.Model):
             return [('branch_name', 'in', logged_user_allowed_branches.ids)]
         else:
             return [('branch_name', '=', 0)]
-
-
 
 
 class SymptomsLines(models.Model):

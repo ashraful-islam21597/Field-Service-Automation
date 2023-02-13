@@ -8,5 +8,3 @@ class ServiceType(models.Model):
 
     name = fields.Char(string='Name')
     active = fields.Boolean(string='Active', default=True, copy=False)
-
-

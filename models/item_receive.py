@@ -6,20 +6,23 @@ from odoo.exceptions import UserError
 class StockPickingOperation(models.Model):
     _inherit = "stock.picking"
     _order = 'name desc'
-    serial = fields.Char(string='Order No', required=True, copy=False, readonly=True,default=lambda self: _('New'))
+    serial = fields.Char(string='Order No', required=True, copy=False, readonly=True, default=lambda self: _('New'))
     service_order_id = fields.Many2many('field.service', 'service_id', string="Service Order", ondelete='cascade')
     to_branch = fields.Many2one('res.branch', string="To Branch", Tracking=True)
     contact_person = fields.Many2one('res.partner', string="Contact Person", Tracking=True)
     custom_operation_receive = fields.Boolean(default=False)
     custom_operation_transfer = fields.Boolean(default=False)
-    picking_type_id = fields.Many2one('stock.picking.type', 'Operation Type',readonly=False,default=lambda self: self._set_operation_type_id(),states={'draft': [('readonly', False)]})
+    picking_type_id = fields.Many2one('stock.picking.type', 'Operation Type', readonly=False,
+                                      default=lambda self: self._set_operation_type_id(),
+                                      states={'draft': [('readonly', False)]})
     received = fields.Boolean(related='service_order_id.receive_customer', string="received status")
     branch_id = fields.Many2one('res.branch', default=lambda self: self.env.user.branch_id)
-    dest_type = fields.Selection([('branch', 'Branch'),('department', 'Department')],string="Destination Type")
+    dest_type = fields.Selection([('branch', 'Branch'), ('department', 'Department')], string="Destination Type")
     dept = fields.Many2one('field.service.department', string='Department', tracking=True)
     picking_created_user = fields.Many2one('res.users', string='Contact Person', default=lambda self: self.env.user.id)
     receive_approve = fields.Boolean(compute='_transfer_receive_approve', string='approve', default=False)
-    transfer_confirmation_approval = fields.Boolean(compute='_transfer_confirmation_approval', string='confirm',default=False)
+    transfer_confirmation_approval = fields.Boolean(compute='_transfer_confirmation_approval', string='confirm',
+                                                    default=False)
     remarks = fields.Html(string="Reamrks")
 
     def waiting_for_receive(self):

@@ -199,12 +199,6 @@ class QualityAssuranceDetails(models.Model):
     qa_date = fields.Datetime(string='QA Date')
     create_date = fields.Datetime(string='Create Date')
     qa_flag = fields.Boolean(default=False)
-
-    # def _make_field_readonly(self):
-    #     print(">>>>>>>>>",self.qa_status)
-    #     if self.qa_status == "Under QC":
-    #         print(self.qa_status)
-    #         return True
     @api.onchange('qa_status')
     def _onchange_qa_status(self):
         self.task_status = self.qa_status
@@ -301,68 +295,7 @@ class diagnosisRepairForquality(models.Model):
             res.diagnosis_repair.order_id.qa_details_ids = values
         return res
 
-    # def write(self, vals):
-    #     res = super(diagnosisRepairForquality, self).write(vals)
-    #     print('yyy', vals.get('task_status1'))
-    #     qa_details_lines = self.env['quality.assurance.details'].search([('diagnosis_repair_lines_id', '=', self.id)])
-    #
-    #     if qa_details_lines:
-    #         try:
-    #             print('dr edit',vals['task_status1'])
-    #             p=self.env['repair.status'].search([('repair_status','=','Ready For QC')]).id
-    #             print(p)
-    #             if vals['task_status1'] == p :
-    #                 print(qa_details_lines)
-    #                 values = [(5,0,0)]
-    #                 values1=[]
-    #                 vals = (0, 0, {
-    #                     'order_id': self.diagnosis_repair.order_id.order_no,
-    #                     'order_date': self.diagnosis_repair.order_id.order_date,
-    #                     'product_id': self.part.id,
-    #                     'warranty_status': self.diagnosis_repair.order_id.warranty_status.id,
-    #                     'service_charge': self.diagnosis_repair.service_charge,
-    #                     'diagnosis_date': self.diagnosis_date,
-    #                     'qa_status': self.task_status1.id,
-    #                     'task_status': self.task_status1.id,
-    #                     'total_amount': self.total_amount,
-    #                     'symptoms': self.symptoms.symptom,
-    #                     'learner_id': self.learner_id,
-    #                     'diagnosis_repair_id': self.diagnosis_repair.id,
-    #                     'diagnosis_repair_lines_id': self.id,
-    #                     'rep_seq': self.rep_seq
-    #                 })
-    #                 values.append(vals)
-    #                 values1.append(vals)
-    #                 self.diagnosis_repair.order_id.qa_details_ids = values
-    #                 self.diagnosis_repair.order_id.qa_history_ids = values1
-    #                 return  res
-    #         except:
-    #             return res
-    #     else:
-    #
-    #         values = []
-    #         if self.task_status1.repair_status == 'Ready For QC':
-    #             vals = (0, 0, {
-    #                 'order_id': self.diagnosis_repair.order_id.order_no,
-    #                 'order_date': self.diagnosis_repair.order_id.order_date,
-    #                 'product_id': self.part.id,
-    #                 'warranty_status': self.diagnosis_repair.order_id.warranty_status.id,
-    #                 'service_charge': self.diagnosis_repair.service_charge,
-    #                 'diagnosis_date': self.diagnosis_date,
-    #                 'qa_status': self.task_status1.id,
-    #                 'task_status': self.task_status1.id,
-    #                 'total_amount': self.total_amount,
-    #                 'symptoms': self.symptoms.symptom,
-    #                 'learner_id': self.learner_id,
-    #                 'diagnosis_repair_id': self.diagnosis_repair.id,
-    #                 'diagnosis_repair_lines_id': self.id,
-    #                 'rep_seq': self.rep_seq
-    #             })
-    #             values.append(vals)
-    #             self.diagnosis_repair.order_id.qa_details_ids = values
-    #             self.diagnosis_repair.order_id.qa_history_ids = values
-    #
-    #         return res
+
     def write(self, val):
         qa_status = self.env['repair.status'].search([('id', '=', val.get("task_status1"))])
         if qa_status.repair_status == 'Ready For QC':
